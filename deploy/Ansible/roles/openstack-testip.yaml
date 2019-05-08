@@ -1,0 +1,3 @@
+- name: Display all variables/facts known for a host
+  debug:
+    msg: "Instances {{ webserverIP }}, {{couchdbIP}} and {{harvesterIP}} has been tested"
