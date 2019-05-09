@@ -77,8 +77,7 @@ class Plotter:
         #     https://developers.google.com/maps/documentation/javascript/get-api-key
         #
         # Replace the value below with your personal API key:
-        API_KEY = "AIzaSyBL5mv0DEHyXuopWAqQ532y_JuEACbqfko"
-        plot = GMapPlot(map_options=map_options, api_key=API_KEY, plot_height=573, plot_width=925)
+        plot = GMapPlot(map_options=map_options, api_key=Gmap_API_key, plot_height=573, plot_width=925)
 
         for each in data['data']:
             if AUS_BOUND_BOX[0] <= each['coordinates'][0] <= AUS_BOUND_BOX[2] and \
@@ -103,3 +102,15 @@ class Plotter:
 
         script_map, div_map = components(plot)
         return script_map, div_map
+
+    def time_sentiment_plot(self, doc_id, db_name):
+        while True:
+            try:
+                db = self.couch_server[db_name]
+                data = db.get(doc_id)
+                if data is not None:
+                    break
+            except Exception as e:
+                print(e)
+        ####
+        # draw
