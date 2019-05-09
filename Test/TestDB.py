@@ -45,11 +45,10 @@ if __name__ == '__main__':
     #
     # record = {"ordered_hashtags": hashtag_occurrence}
 
-    # count_terms_only = Counter()
-    # count_terms_only.update(hashtag_occurrence)
-    # top10 = count_terms_only.most_common(10)
-    # figure = plt.figure()
-    # hashtag, occurrences = zip(*top10)
+    count_terms_only = Counter()
+    count_terms_only.update(hashtag_occurrence)
+    top10 = count_terms_only.most_common(10)
+    hashtag, occurrences = zip(*top10)
     # axes = figure.add_axes()
     # data = {'y': occurrences, 'x': hashtag}
     # # plt.bar(range(len(top10)), top10)

@@ -7,12 +7,20 @@ web_app = Flask(__name__)
 
 @web_app.route('/home')
 def home():
+    script = []
+    div = []
     plotter = Plotter()
     # draw figures
-    plotter.bar_plot('sentiment_distribution', 'test_db')
+    temp_script, temp_div = plotter.hashtag_plot(doc_id='trending_hashtags', db_name='test_db')
+    script.append(temp_script)
+    div.append(temp_div)
 
-    return render_template("index.html")
+    temp_script, temp_div = plotter.interactive_map(doc_id='sentiment_distribution', db_name='test_db')
+    script.append(temp_script)
+    div.append(temp_div)
+
+    return render_template('index.html', script=script, div=div)
 
 
 if __name__ == '__main__':
-    web_app.run(host="localhost", port=5000, debug=True)
+    web_app.run(host="0.0.0.0", port=5000, debug=True)

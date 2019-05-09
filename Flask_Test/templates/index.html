@@ -5,16 +5,18 @@
     <title>Home</title>
     <meta name="referrer" content="same-origin">
     <meta name="viewport" content="width=960">
-    <link rel="stylesheet" href= "{{url_for('static', filename='css/site.20190504221939.css')}}" type="text/css">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/site.20190504221939.css')}}" type="text/css">
     <!--[if lte IE 7]>
-    <link rel="stylesheet" href= "{{url_for('static', filename='css/site.20190504221939-lteIE7.css')}}" type="text/css">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/site.20190504221939-lteIE7.css')}}" type="text/css">
     <![endif]-->
     <!--[if lte IE 8]>
-    <link rel="stylesheet" href= "{{url_for('static', filename='css/site.20190504221939-lteIE8.css')}}" type="text/css">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/site.20190504221939-lteIE8.css')}}" type="text/css">
     <![endif]-->
     <!--[if gte IE 9]>
-    <link rel="stylesheet" href= "{{url_for('static', filename='css/site.20190504221939-gteIE9.css')}}" type="text/css">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/site.20190504221939-gteIE9.css')}}" type="text/css">
     <![endif]-->
+    <link rel="stylesheet" href="https://cdn.pydata.org/bokeh/release/bokeh-1.1.0.min.css" type="text/css"/>
+    <script type="text/javascript" src="https://cdn.pydata.org/bokeh/release/bokeh-1.1.0.min.js"></script>
 </head>
 
 <body id="b">
@@ -83,21 +85,26 @@
                 </li>
             </ul>
         </div>
-        <div class="v ps12 s14 c11">
+        <div class="v ps12 s14 c11" style=>
             <picture class="i3">
-<!--                <source srcset= {{url_for('static', filename='images/1284512-639.jpg 1x, images/1284512-1278.jpg 2x')}}>-->
-                <img src="{{url_for('static', filename='images/figures/sample.png')}}" class="js i2">
+                <!--                <source srcset= {{url_for('static', filename='images/1284512-639.jpg 1x, images/1284512-1278.jpg 2x')}}>-->
+                <!--                <img src="{{url_for('static', filename='images/figures/sample.png')}}" class="js i2">-->
+                <div class="js i2">
+                    {{script[0] | safe}}
+                    {{div[0]| safe}}
+                </div>
+
             </picture>
         </div>
         <div class="v ps13 s14 c12">
             <picture class="i3">
-<!--                <source srcset="images/1284512-639.jpg 1x, images/1284512-1278.jpg 2x">-->
+                <!--                <source srcset="images/1284512-639.jpg 1x, images/1284512-1278.jpg 2x">-->
                 <img src="{{url_for('static', filename='images/1284512-639.jpg')}}" class="js i2">
             </picture>
         </div>
         <div class="v ps14 s14 c13">
             <picture class="i3">
-<!--                <source srcset="images/1284512-639.jpg 1x, images/1284512-1278.jpg 2x">-->
+                <!--                <source srcset="images/1284512-639.jpg 1x, images/1284512-1278.jpg 2x">-->
                 <img src="{{url_for('static', filename='images/1284512-639.jpg')}}" class="js i2">
             </picture>
         </div>
@@ -121,6 +128,8 @@
                 <a name="anchor6" class="v ps22 s15">
                 </a>
                 <div class="v ps23 s18 c16 map js4">
+                    {{script[1] | safe}}
+                    {{div[1] | safe}}
                 </div>
             </div>
         </div>
