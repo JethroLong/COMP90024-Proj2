@@ -1,9 +1,10 @@
 import json
-import multiprocessing
 from tweepy import Stream, OAuthHandler
 from tweepy.streaming import StreamListener
 
 # derived from <https://gist.github.com/graydon/11198540>
+from harvester import sentiment
+
 AUS_BOUND_BOX = (113.338953078, -43.6345972634, 153.569469029, -10.6681857235)
 
 
@@ -18,10 +19,13 @@ class MyListener (StreamListener):
         self.db = db
 
     def on_data(self, raw_data):
-        # record = pre-processing(raw_data)
-        # self.db.store(json.loads(record))
-        self.db.store(json.loads(raw_data))
-        # print(raw_data)
+        try:
+            tweet = json.loads(raw_data)
+            if 'sentiment' not in tweet.keys():
+                tweet['sentiment'] = sentiment.SentimentAnalyzer.get_scores(tweet["text"])
+            self.db.store(tweet)
+        except Exception as e:
+            print(e)
 
     def on_status(self, status):
         print(status)
@@ -34,7 +38,7 @@ class StreamRunner:
     def __init__(self, db):
         self.db = db
 
-    def run(self, group):
+    def run(self, group, if_key):
         access_token = group["access_token"]
         access_token_secret = group["access_token_secret"]
         consumer_key = group["consumer_key"]
@@ -46,7 +50,12 @@ class StreamRunner:
         auth.set_access_token(access_token, access_token_secret)
 
         twitter_stream = Stream(auth, MyListener(self.db))
-        twitter_stream.filter(track=keywords, locations=AUS_BOUND_BOX, languages=['en'])
+
+        if if_key == '-k':
+            twitter_stream.filter(track=keywords, locations=AUS_BOUND_BOX, languages=['en'])
+        else:
+            twitter_stream.filter(locations=AUS_BOUND_BOX, languages=['en'])
+
 
 
 

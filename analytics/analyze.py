@@ -1,45 +1,96 @@
-import math
-
 import couchdb
 
 # Connect to couch server
 from couchdb import PreconditionFailed
+from mpi4py import MPI
 
-from analytics import sentiment
-from analytics.create_views import create_view
+from analytics import create_views
+from analytics.process_hashtag import HashtagProcessor
+from analytics.time_distribution import TimeAnalytics, SentimentTimeAnalytics
 
 url = 'http://127.0.0.1:5984/'
-raw_tweets = 'raw_tweets'
+keywords_tweets = 'keyword_tweets'
+no_keywords_tweets = 'non_keyword_tweets'
 
 # map functions to be added or edited
 ALL_DOC_VIEW_FUNC = "function (doc) {\n emit(doc._id, doc); \n}"
 ALL_TEXT_VIEW_FUNC = "function (doc) {\n if (doc.text != null) {\n  emit(doc._id, doc.text);\n }\n}"
-HAS_GEO_VIEW_FUNC = "function (doc) {\n  if (doc.geo != null) {\n     emit(doc._id, doc.geo);\n  }\n}"
+HASHTAG_VIEW_FUNC = "function (doc) {\n  if (doc.entities.hashtags.length > 0) {\n     \
+                                                emit(doc._id, doc.entities.hashtags);\n  }\n}"
 
-# connect to couch server / raw_tweets db
-couch_server = couchdb.Server(url=url)
-raw_tweets_db = couch_server[raw_tweets]
+TIME_VIEW_FUNC = "function (doc) {\n  var utc_time = new Date(doc.created_at).getUTCHours();\
+                                    \n  emit(doc._id, utc_time); \n}"
+DOC_PLACE_VIEW = "function (doc) {\n  if (doc.geo != null) {\n    emit(doc._i d, doc);\n  } \
+                        else if (doc.coordinates != null) {\n    emit(doc._id, doc);\n  } \
+                        else if (doc.place != null) {\n    emit(doc._id, doc);\n  }\n}"
 
-# create views
-view_path = create_view(url=url, db_name=raw_tweets, view_name="all_doc_view", mapFunc=ALL_DOC_VIEW_FUNC, overwrite=True)
+SENTIMENT_TIME_VIEW = "function (doc) {\n  if (doc.sentiment != null) { \n  \
+                        var score = doc.sentiment.compound;\n     \
+                        var date = new Date(doc.created_at).getUTCHours();\n   \
+                        emit(doc._id, [date, score]);\n  }\n}"
 
-# create new databases to store processed data
-# try:
-#     sentiment_db = couch_server.create('sentiment')
-# except PreconditionFailed:
-#     sentiment_db = couch_server['sentiment']
-
-num_docs = raw_tweets_db.info()["doc_count"]
-batch_size = 10000
-iters = math.ceil(num_docs/batch_size)
+SENTIMENT_DISTRIBUTION_VIEW = "function (doc) {\n  var dict = {};\n  var sentiment = doc.sentiment.compound;\n  dict['sentiment'] = sentiment;\n  if (doc.coordinates != null){\n    dict['coordinates'] = doc.coordinates;\n    emit(doc._id, dict)\n  }else if (doc.place != null){\n    dict['place'] = doc.place;\n    emit(doc._id, dict)\n  }else if (doc.geo != null){\n    dict['geo'] = doc.geo;\n    emit(doc._id, dict)\n  }\n}"
 
 
-# add sentiment attribute
-for i in range(iters):
-    batch_docs = raw_tweets_db.view(view_path, limit=batch_size, skip=i*batch_size)
-    for row in batch_docs.rows:
-        if 'sentiment' not in row.value.keys():
-            sentiment_score = sentiment.SentimentAnalyzer.get_scores(row.value['text'])
-            row.value['sentiment'] = sentiment_score
-            raw_tweets_db.save(row.value)
-            print(row.value)
+def main():
+    comm = MPI.COMM_WORLD
+    rank = comm.Get_rank()
+
+    # connect to couch server / tweets dbs
+    couch_server = couchdb.Server(url=url)
+    keywords_db = couch_server[keywords_tweets]
+    no_keywords_db = couch_server[no_keywords_tweets]
+
+    if rank == 0:  # Find trending hashtags
+        # create new databases to store processed data
+        try:
+            hashtag_db = couch_server.create('hashtag')
+        except PreconditionFailed:
+            hashtag_db = couch_server['hashtag']
+
+        # create views
+        view_path = create_views.create_view(url=url, db_name=keywords_tweets, view_name='hashtags',
+                                             mapFunc=HASHTAG_VIEW_FUNC,
+                                             overwrite=False)
+        hashtag_processor = HashtagProcessor(source_db=keywords_db, view_path=view_path, results_db=hashtag_db)
+        hashtag_processor.run()
+    elif rank == 1:  # what time the keyworded tweets were posted
+        # create new databases to store processed data
+        try:
+            swear_time_db = couch_server.create('time')
+        except PreconditionFailed:
+            swear_time_db = couch_server['time']
+
+        view_path = create_views.create_view(url=url, db_name=keywords_tweets, view_name='time_distribution',
+                                             mapFunc=TIME_VIEW_FUNC,
+                                             overwrite=True)
+        swear_time_processor = TimeAnalytics(source_db=keywords_db, view_path=view_path, results_db=swear_time_db)
+        swear_time_processor.run()
+    elif rank == 2:  # sentiment analysis with regard to parts of a day
+        # create new databases to store processed data
+        try:
+            sentiment_db = couch_server.create('time')
+        except PreconditionFailed:
+            sentiment_db = couch_server['time']
+        view_path = create_views.create_view(url=url, db_name=no_keywords_tweets, view_name='sentiment_time',
+                                             mapFunc=SENTIMENT_TIME_VIEW,
+                                             overwrite=True)
+        sentiment_time_processor = SentimentTimeAnalytics(source_db=no_keywords_db, view_path=view_path,
+                                                          results_db=sentiment_db)
+        sentiment_time_processor.run()
+    elif rank == 3:  # sentiment distribution on map
+        # create new databases to store processed data
+        try:
+            sent_place_db = couch_server.create('sentiment')
+        except PreconditionFailed:
+            sent_place_db = couch_server['sentiment']
+        view_path = create_views.create_view(url=url, db_name=no_keywords_tweets, view_name='sentiment_distribution',
+                                             mapFunc=SENTIMENT_DISTRIBUTION_VIEW,
+                                             overwrite=True)
+        sent_area_processor = SentimentTimeAnalytics(source_db=no_keywords_db, view_path=view_path,
+                                                     results_db=sent_place_db)
+        sent_area_processor.run()
+
+
+if __name__ == '__main__':
+    main()

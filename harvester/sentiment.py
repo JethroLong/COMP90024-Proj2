@@ -10,7 +10,6 @@ class SentimentAnalyzer:
             analyzer = SentimentIntensityAnalyzer()
             temp_scores = analyzer.polarity_scores(sentence)
             return temp_scores
-            # count_sentiment(temp_scores)
         except Exception as e:
             nltk.download('vader_lexicon')
             return analyzer.polarity_scores(sentence)

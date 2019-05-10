@@ -1,0 +1,620 @@
+html {
+    font-family: sans-serif;
+    -ms-text-size-adjust: 100%;
+    -webkit-text-size-adjust: 100%
+}
+body {
+    margin: 0
+}
+audio, video {
+    display: inline-block;
+    vertical-align: baseline
+}
+audio:not([controls]) {
+    display: none;
+    height: 0
+}
+[hidden], template {
+    display: none
+}
+a {
+    background: 0 0
+}
+a:active, a:hover {
+    outline: 0
+}
+b, strong {
+    font-weight: 700
+}
+dfn {
+    font-style: italic
+}
+h1, h2, h3, h4, h5, h6 {
+    font-size: 1em;
+    line-height: 1;
+    margin: 0em 0
+}
+img {
+    border: 0
+}
+svg:not(:root) {
+    overflow: hidden
+}
+button, input, optgroup, select, textarea {
+    color: inherit;
+    font: inherit;
+    margin: 0
+}
+button {
+    overflow: visible
+}
+button, select {
+    text-transform: none
+}
+button, html input[type=button], input[type=submit] {
+    -webkit-appearance: button;
+    cursor: pointer;
+    box-sizing: border-box;
+    white-space: normal
+}
+input[type=text], input[type=password], textarea {
+    -webkit-appearance: none;
+    appearance: none;
+    box-sizing: border-box
+}
+button[disabled], html input[disabled] {
+    cursor: default
+}
+button::-moz-focus-inner, input::-moz-focus-inner {
+    border: 0;
+    padding: 0
+}
+input {
+    line-height: normal
+}
+input[type=checkbox], input[type=radio] {
+    box-sizing: border-box;
+    padding: 0
+}
+input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer-spin-button {
+    height: auto
+}
+input[type=search] {
+    -webkit-appearance: textfield;
+    -moz-box-sizing: content-box;
+    -webkit-box-sizing: content-box;
+    box-sizing: content-box
+}
+input[type=search]::-webkit-search-cancel-button, input[type=search]::-webkit-search-decoration {
+    -webkit-appearance: none
+}
+textarea {
+    overflow: auto;
+    box-sizing: border-box;
+    border-color: #ddd
+}
+optgroup {
+    font-weight: 700
+}
+table {
+    border-collapse: collapse;
+    border-spacing: 0
+}
+td, th {
+    padding: 0
+}
+body, div {
+    font-size: 0
+}
+p, span, h1, h2, h3, h4, h5, h6 {
+    margin: 0;
+    word-spacing: normal;
+    word-wrap: break-word;
+    -ms-word-wrap: break-word;
+    pointer-events: auto
+}
+sup {
+    font-size: inherit;
+    vertical-align: baseline;
+    position: relative;
+    top: -0.4em
+}
+sub {
+    font-size: inherit;
+    vertical-align: baseline;
+    position: relative;
+    top: 0.4em
+}
+ul {
+    display: block;
+    word-spacing: normal;
+    word-wrap: break-word;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    -moz-padding-start: 0;
+    -khtml-padding-start: 0;
+    -webkit-padding-start: 0;
+    -o-padding-start: 0;
+    -padding-start: 0;
+    -webkit-margin-before: 0;
+    -webkit-margin-after: 0
+}
+li {
+    display: block
+}
+li p {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: :none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -o-user-select: none;
+    user-select: none
+}
+form {
+    display: inline-block
+}
+a {
+    text-decoration: inherit;
+    color: inherit;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0)
+}
+textarea {
+    resize: none
+}
+.shm-l {
+    float: left;
+    clear: left
+}
+.shm-r {
+    float: right;
+    clear: right
+}
+.whitespacefix {
+    word-spacing: -1px
+}
+video:not(#vbk):not(.videoinline) {
+    width: 100%;
+    max-width: 900px
+}
+video:-webkit-full-screen {
+    max-width: 100% !important
+}
+video:-moz-full-screen {
+    max-width: 100% !important
+}
+video:-ms-fullscreen {
+    max-width: 100% !important
+}
+video:fullscreen {
+    max-width: 100% !important
+}
+.player1.fullscreen1-active video {
+    max-width: 100% !important
+}
+@font-face {
+    font-family: "Lato";
+    src: url('Lato-Bold.woff2') format('woff2'), url('Lato-Bold.woff') format('woff');
+    font-weight: 700
+}
+@font-face {
+    font-family: "Alex Brush";
+    src: url('AlexBrush-Regular.woff2') format('woff2'), url('AlexBrush-Regular.woff') format('woff');
+    font-weight: 400
+}
+#b {
+    background-color: #fff
+}
+.v {
+    display: inline-block;
+    vertical-align: top
+}
+.ps {
+    position: relative;
+    margin-top: 0
+}
+.s {
+    width: 100%;
+    min-width: 960px;
+    min-height: 840px
+}
+.c {
+    z-index: 1;
+    pointer-events: none;
+    border: 0;
+    overflow: hidden
+}
+.fx {
+    background-attachment: fixed;
+    background-image: url(../images/dirty-words-960.jpg);
+    background-color: #700a03;
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+    background-size: cover;
+    background-clip: padding-box
+}
+.ps2 {
+    position: relative;
+    margin-top: 534px
+}
+.s2 {
+    width: 100%;
+    min-width: 960px;
+    min-height: 306px;
+    height: 306px
+}
+.c2 {
+    z-index: 2;
+    border: 0;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+    background-color: rgba(64, 64, 64, .73);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, .40)
+}
+.ps3 {
+    position: relative;
+    margin-top: -715px
+}
+.v2 {
+    display: block;
+    vertical-align: top
+}
+.s3 {
+    pointer-events: none;
+    min-width: 960px;
+    width: 960px;
+    margin-left: auto;
+    margin-right: auto
+}
+.ps4 {
+    position: relative;
+    margin-left: 102px;
+    margin-top: 0
+}
+.s4 {
+    min-width: 746px;
+    width: 746px;
+    min-height: 859px
+}
+.ps5 {
+    position: relative;
+    margin-left: 0;
+    margin-top: 0
+}
+.w {
+    line-height: 0
+}
+.v3 {
+    display: inline-block;
+    vertical-align: top;
+    overflow: hidden
+}
+.s5 {
+    min-width: 746px;
+    width: 746px;
+    min-height: 859px;
+    height: 859px
+}
+.c4 {
+    z-index: 3;
+    pointer-events: auto
+}
+.p {
+    padding-top: 0;
+    text-indent: 0;
+    padding-bottom: 0;
+    padding-right: 0;
+    text-align: center
+}
+.f {
+    font-family: Lato;
+    font-size: 52px;
+    font-weight: 700;
+    font-style: normal;
+    text-decoration: none;
+    text-transform: none;
+    color: #fff;
+    background-color: initial;
+    line-height: 65px;
+    letter-spacing: -0.01px;
+    text-shadow: none
+}
+.f2 {
+    font-family: "Alex Brush";
+    font-size: 88px;
+    font-weight: 400;
+    font-style: normal;
+    text-decoration: none;
+    text-transform: none;
+    color: #fff;
+    background-color: initial;
+    line-height: 115px;
+    letter-spacing: -2.92px;
+    text-shadow: none
+}
+.f3 {
+    font-family: Lato;
+    font-size: 52px;
+    font-weight: 700;
+    font-style: normal;
+    text-decoration: none;
+    text-transform: none;
+    color: #fff;
+    background-color: initial;
+    line-height: 72px;
+    letter-spacing: -5.49px;
+    text-shadow: none
+}
+.f4 {
+    font-family: Lato;
+    font-size: 52px;
+    font-weight: 700;
+    font-style: normal;
+    text-decoration: none;
+    text-transform: none;
+    color: #fff;
+    background-color: initial;
+    line-height: 72px;
+    letter-spacing: -1.24px;
+    text-shadow: none
+}
+.ps6 {
+    position: relative;
+    margin-left: 275px;
+    margin-top: -307px
+}
+.s6 {
+    min-width: 202px;
+    width: 202px;
+    min-height: 202px;
+    height: 202px
+}
+.c5 {
+    z-index: 4;
+    pointer-events: auto
+}
+.a {
+    display: block
+}
+.i {
+    position: absolute;
+    left: 0;
+    min-width: 202px;
+    max-width: 202px;
+    min-height: 202px;
+    max-height: 202px;
+    top: 0
+}
+.ps7 {
+    position: relative;
+    margin-top: -144px
+}
+.s7 {
+    width: 100%;
+    min-width: 960px;
+    min-height: 2749px
+}
+.c6 {
+    z-index: 5;
+    pointer-events: none;
+    border: 0;
+    overflow: hidden
+}
+.fx2 {
+    background-attachment: fixed;
+    background-image: url(../images/twitter-1795652_1920-960.jpg);
+    background-color: #700a03;
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+    background-size: cover;
+    background-clip: padding-box
+}
+.ps8 {
+    position: relative;
+    margin-top: 282px
+}
+.s8 {
+    min-width: 960px;
+    width: 960px;
+    margin-left: auto;
+    margin-right: auto
+}
+.ps9 {
+    position: relative;
+    margin-left: 180px;
+    margin-top: 0
+}
+.s9 {
+    min-width: 600px;
+    width: 600px;
+    min-height: 187px;
+    height: 187px
+}
+.c7 {
+    z-index: 11;
+    pointer-events: auto
+}
+.f5 {
+    font-family: "Alex Brush";
+    font-size: 105px;
+    font-weight: 400;
+    font-style: normal;
+    text-decoration: none;
+    text-transform: none;
+    color: #fff;
+    background-color: initial;
+    line-height: 183px;
+    letter-spacing: normal;
+    text-shadow: none
+}
+.ps10 {
+    position: relative;
+    margin-left: 70px;
+    margin-top: 53px
+}
+.s10 {
+    min-width: 811px;
+    width: 811px;
+    min-height: 413px;
+    height: 413px
+}
+.c8 {
+    z-index: 6;
+    pointer-events: auto
+}
+.i2 {
+    position: absolute;
+    left: 79px;
+    width: 639px;
+    height: 399px;
+    top: 0;
+    border: 7px solid #f9d050
+}
+.i3 {
+    left: 79px;
+    width: 639px;
+    height: 399px;
+    top: 0;
+    display: inline-block
+}
+.ps11 {
+    position: relative;
+    margin-left: 61px;
+    margin-top: 150px
+}
+.c9 {
+    z-index: 7;
+    pointer-events: auto
+}
+.ps12 {
+    position: relative;
+    margin-left: 61px;
+    margin-top: 154px
+}
+.c10 {
+    z-index: 8;
+    pointer-events: auto
+}
+.ps13 {
+    position: relative;
+    margin-left: 61px;
+    margin-top: 173px
+}
+.c11 {
+    z-index: 9;
+    pointer-events: auto
+}
+.ps14 {
+    position: relative;
+    margin-left: 0;
+    margin-top: -2467px
+}
+.s11 {
+    min-width: 1px;
+    width: 1px;
+    min-height: 1px
+}
+.ps15 {
+    position: relative;
+    margin-top: 2466px
+}
+.s12 {
+    width: 100%;
+    min-width: 960px;
+    min-height: 738px
+}
+.c12 {
+    z-index: 10;
+    pointer-events: none;
+    border: 0;
+    background-color: #700a03
+}
+.ps16 {
+    position: relative;
+    margin-top: 14px
+}
+.c13 {
+    z-index: 12;
+    pointer-events: auto
+}
+.ps17 {
+    position: relative;
+    margin-left: 184px;
+    margin-top: 34px
+}
+.s13 {
+    min-width: 600px;
+    width: 600px;
+    min-height: 400px
+}
+.c14 {
+    z-index: 13;
+    pointer-events: auto
+}
+.map {
+    line-height: 1.5
+}
+.js5-label {
+    font-size: 12px;
+    line-height: 1.5
+}
+@media (-webkit-min-device-pixel-ratio:2), (min-resolution:192dpi) {
+    .fx {
+        background-image: url(../images/dirty-words-1920.jpg);
+        background-attachment: fixed
+    }
+    .fx2 {
+        background-image: url(../images/twitter-1795652_1920-1920.jpg);
+        background-attachment: fixed
+    }
+}
+@media (min-width:960px) {
+    .fx {
+        background-image: url(../images/dirty-words-1200.jpg);
+        background-attachment: fixed
+    }
+    .fx2 {
+        background-image: url(../images/twitter-1795652_1920-1200.jpg);
+        background-attachment: fixed
+    }
+}
+@media (min-width:1200px) {
+    .fx {
+        background-image: url(../images/dirty-words-1600.jpg);
+        background-attachment: fixed
+    }
+    .fx2 {
+        background-image: url(../images/twitter-1795652_1920-1600.jpg);
+        background-attachment: fixed
+    }
+}
+@media (min-width:1600px) {
+    .fx {
+        background-image: url(../images/dirty-words-2000.jpg);
+        background-attachment: fixed
+    }
+    .fx2 {
+        background-image: url(../images/twitter-1795652_1920-2000.jpg);
+        background-attachment: fixed
+    }
+}
+@media (min-width:960px) and (-webkit-min-device-pixel-ratio:2), (min-width:960px) and (min-resolution:192dpi) {
+    .fx2 {
+        background-image: url(../images/twitter-1795652_1920-2400.jpg);
+        background-attachment: fixed
+    }
+}
+@media (min-width:1200px) and (-webkit-min-device-pixel-ratio:2), (min-width:1200px) and (min-resolution:192dpi) {
+    .fx2 {
+        background-image: url(../images/twitter-1795652_1920-3200.jpg);
+        background-attachment: fixed
+    }
+}
+@media (min-width:1600px) and (-webkit-min-device-pixel-ratio:2), (min-width:1600px) and (min-resolution:192dpi) {
+    .fx2 {
+        background-image: url(../images/twitter-1795652_1920-4000.jpg);
+        background-attachment: fixed
+    }
+}

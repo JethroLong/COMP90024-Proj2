@@ -23,7 +23,7 @@ loadGoogleMaps = function() {
         center: new google.maps.LatLng(40.6700, -73.9400),
         mapTypeId: google.maps.MapTypeId.ROADMAP,
     };
-    var map = new google.maps.Map($('.js5').get(0), mapOptions);
+    var map = new google.maps.Map($('.js4').get(0), mapOptions);
 };
 $(document).ready(function() {
     r = function() {
@@ -31,7 +31,6 @@ $(document).ready(function() {
         $('.js').attr('src', (dpi > 1) ? 'images/1284512-1278.jpg' : 'images/1284512-639.jpg');
         $('.js2').attr('src', (dpi > 1) ? 'images/1284512-1278.jpg' : 'images/1284512-639.jpg');
         $('.js3').attr('src', (dpi > 1) ? 'images/1284512-1278.jpg' : 'images/1284512-639.jpg');
-        $('.js4').attr('src', (dpi > 1) ? 'images/1284512-1278.jpg' : 'images/1284512-639.jpg');
     };
     if (!window.HTMLPictureElement) {
         r();
@@ -46,7 +45,8 @@ $(document).ready(function() {
             })
         })
     })();
-    var s = document.createElement('web_server.py');
+    initMenu($('#m1')[0]);
+    var s = document.createElement('script');
     s.type = 'text/javascript';
     s.src = 'https://maps.googleapis.com/maps/api/js';
     s.onload = loadGoogleMaps;

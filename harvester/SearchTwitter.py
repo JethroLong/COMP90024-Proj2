@@ -4,6 +4,8 @@ from time import sleep
 import tweepy
 from tweepy import OAuthHandler
 
+from harvester import sentiment
+
 
 class Search:
 
@@ -12,8 +14,6 @@ class Search:
         self.db = db
 
     def search_by_keyword(self, para_dict, api):
-        print("keyword ", para_dict["keywords"])
-        print("paras ", para_dict["since_id"], "  ", para_dict["max_id"])
         # If results only below a specific ID are, set max_id to that ID.
         # else default to no upper limit, start from the most recent tweet matching the search query.
         max_id = -1
@@ -35,6 +35,8 @@ class Search:
             para_dict["since_id"] = new_tweets[0].id
             for tweet in new_tweets:
                 print(tweet)
+                if 'sentiment' not in tweet._json.keys():
+                    tweet._json['sentiment'] = sentiment.SentimentAnalyzer.get_scores(tweet._json["text"])
                 self.db.store(tweet._json)
             max_id = new_tweets[-1].id  # oldest id was used, as we continue retrieving tweets posted even more earlier
 
@@ -43,7 +45,8 @@ class Search:
                                         since_id=since_id, max_id=max_id)
             if new_tweets:
                 for tweet in new_tweets:
-                    print(tweet)
+                    if 'sentiment' not in tweet._json.keys():
+                        tweet._json['sentiment'] = sentiment.SentimentAnalyzer.get_scores(tweet._json["text"])
                     self.db.store(tweet._json)
                 max_id = new_tweets[-1].id
 
@@ -75,12 +78,12 @@ class Search:
 
         return api
 
-    def run(self, group):
+    def run(self, group, search_keywords):
         api = self.setAPI(group)
         para_dict = {}
         para_dict["since_id"] = -1
         para_dict["max_id"] = -1
-        para_dict["keywords"] = group["keywords"]
+        para_dict["keywords"] = search_keywords
 
         print("Now start searching for ", para_dict)
         while True:
