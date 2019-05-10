@@ -51,7 +51,7 @@ def main():
         # create views
         view_path = create_views.create_view(url=url, db_name=keywords_tweets, view_name='hashtags',
                                              mapFunc=HASHTAG_VIEW_FUNC,
-                                             overwrite=True)
+                                             overwrite=False)
         hashtag_processor = HashtagProcessor(source_db=keywords_db, view_path=view_path, results_db=hashtag_db)
         hashtag_processor.run()
     elif rank == 1:  # what time the keyworded tweets were posted

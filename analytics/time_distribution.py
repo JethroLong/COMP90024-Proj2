@@ -18,11 +18,18 @@ class TimeAnalytics:
             hours.append(each.value)
         total_num = len(hours)
         hour_freq_dict = Counter(hours)
-        for k, v in hour_freq_dict.items():
-            hour_freq_dict[k] = float(v/total_num)
+        # for k, v in hour_freq_dict.items():
+        #     hour_freq_dict[k] = float(v/total_num)
 
-        record = {"_id": "tweet_time", "date": hour_freq_dict}
-        self.results_db.save(record)
+        record = {"_id": "time_distribution", "data": hour_freq_dict}
+
+        try:
+            self.results_db.save(record)
+        except Exception:   # conflict leads to update
+            doc = self.results_db.get(record['_id'])
+            doc['data'] = record['data']
+            self.results_db.save(doc)
+
 
 class SentimentTimeAnalytics:
 
@@ -30,9 +37,6 @@ class SentimentTimeAnalytics:
         self.view_path = view_path
         self.source_db = source_db
         self.results_db = results_db
-
-    def plot(self):
-        pass
 
     def sentiment_classifier(self, compound):
         if compound >= 0.05:
@@ -72,4 +76,10 @@ class SentimentTimeAnalytics:
                     sentiment_dict['night'][sentiment] = 1
 
         record = {"_id": "sentiment_time", 'data': sentiment_dict}
-        self.results_db.save(record)
+
+        try:
+            self.results_db.save(record)
+        except Exception:  # conflict leads to update
+            doc = self.results_db.get(record['_id'])
+            doc['data'] = record['data']
+            self.results_db.save(doc)

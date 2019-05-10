@@ -46,7 +46,7 @@ $(document).ready(function() {
             })
         })
     })();
-    var s = document.createElement('web_server.py');
+    var s = document.createElement('script');
     s.type = 'text/javascript';
     s.src = 'https://maps.googleapis.com/maps/api/js';
     s.onload = loadGoogleMaps;

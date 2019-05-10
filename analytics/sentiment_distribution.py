@@ -13,7 +13,6 @@ class SentimentPlaceAnalytics:
         sentiment_cor_list = []
         for each in view:
             temp_dict = {}
-
             if 'coordinates' in each.value.keys():
                 temp_dict['coordinates'] = each.value['coordinates']['coordinates']
                 temp_dict['sentiment'] = each.value['sentiment']
@@ -29,7 +28,12 @@ class SentimentPlaceAnalytics:
                     temp_dict['coordinates'] = [sum(x_list) / float(len(x_list)), sum(y_list) / float(len(y_list))]
                     temp_dict['sentiment'] = each.value['sentiment']
                     sentiment_cor_list.append(temp_dict)
-
         record = {'_id': "sentiment_distribution", "data": sentiment_cor_list}
-        self.results_db.save(record)
+
+        try:
+            self.results_db.save(record)
+        except Exception:  # conflict leads to update
+            doc = self.results_db.get(record['_id'])
+            doc['data'] = record['data']
+            self.results_db.save(doc)
 

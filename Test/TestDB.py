@@ -22,7 +22,7 @@ if __name__ == '__main__':
     url = "http://localhost:5984"
     db_name = "raw_tweets"
     db = Database.DB(url, db_name)
-    view_path = create_views.create_view(url=url,db_name=db_name, view_name='hashtags',mapFunc=HASHTAG_VIEW_FUNC, overwrite=True)
+    view_path = create_views.create_view(url=url, db_name=db_name, view_name='hashtags', mapFunc=HASHTAG_VIEW_FUNC, overwrite=False)
     view = db.database.view(name=view_path)
     count = 1
     hashtag_occurrence = {}
@@ -32,9 +32,14 @@ if __name__ == '__main__':
                 hashtag_occurrence[each['text'].upper()] = 1
             else:
                 hashtag_occurrence[each['text'].upper()] += 1
-    results_db = Database.DB(url, 'test_db')
+    results_db = Database.DB(url, 'test_db').database
     record = {"_id": "trending_hashtags", "data": hashtag_occurrence}
-    results_db.database.save(record)
+    try:
+        results_db.save(record)
+    except Exception:
+        doc = results_db.get(record['_id'])
+        doc['data'] = record['data']
+        results_db.save(doc)
     # hashtag_occurrence = sorted(hashtag_occurrence.items(), reverse=True, key=lambda x: x[-1])
     #
     # couch = couchdb.Server(url=url)
@@ -45,10 +50,10 @@ if __name__ == '__main__':
     #
     # record = {"ordered_hashtags": hashtag_occurrence}
 
-    count_terms_only = Counter()
-    count_terms_only.update(hashtag_occurrence)
-    top10 = count_terms_only.most_common(10)
-    hashtag, occurrences = zip(*top10)
+    # count_terms_only = Counter()
+    # count_terms_only.update(hashtag_occurrence)
+    # top10 = count_terms_only.most_common(10)
+    # hashtag, occurrences = zip(*top10)
     # axes = figure.add_axes()
     # data = {'y': occurrences, 'x': hashtag}
     # # plt.bar(range(len(top10)), top10)
