@@ -46,7 +46,7 @@ def main(argv):
 
 
 def keyword_distribution(Groups):
-    with open("./harvester/offensive_words_corpus.txt", 'r') as corpus:
+    with open("offensive_words_corpus.txt", 'r') as corpus:
         indicator = 0
         group_size = len(Groups)
         for keyword in corpus:
