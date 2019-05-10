@@ -1,21 +1,23 @@
 import json
 
 import sys
+import os
 
 from harvester import StreamTwitter, Database
 from harvester.SearchTwitter import Search
 
 
 def main(argv):
-    with open("./harvester/harvester_config.json", 'r') as template:
+    with open("harvester_config.json", 'r') as template:
         data = json.load(template)
         Groups = data["Groups"]
         new_groups = keyword_distribution(Groups)
         # search_keywords is of length 10, derived from
         # https://listverse.com/2015/09/29/10-offensive-english-words-with-hazy-origins/
         search_keywords = data["search_keywords"]
+
+        # import from system host file
         url = data["db_url"]
-        # db_name = data["db_name"]
         geocode = data["geocode"]
 
         i = int(argv[2])
