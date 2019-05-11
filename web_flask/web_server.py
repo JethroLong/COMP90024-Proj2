@@ -1,6 +1,6 @@
 from flask import Flask, render_template
 
-from flask.plot.figure_plot import Plotter
+from web_flask.plot.figure_plot import Plotter
 
 web_app = Flask(__name__)
 
@@ -16,25 +16,26 @@ def home():
     script.append(temp_script)
     div.append(temp_div)
 
-    temp_script, temp_div = plotter.tweets_hour_breakdown(doc_id='time_distribution', db_name='test_db')
+    # tweets time distribution
+    temp_script, temp_div = plotter.time_distribution(doc_id='time_distribution', db_name='test_db')
     script.append(temp_script)
     div.append(temp_div)
 
     return render_template('index.html', script=script, div=div)
 
 
-@web_app.route('/home/sentiment')
+@web_app.route('/sentiment')
 def sentiment():
     script = []
     div = []
     plotter = Plotter()
 
+    # interactive map
     temp_script, temp_div = plotter.interactive_map(doc_id='sentiment_distribution', db_name='test_db')
     script.append(temp_script)
     div.append(temp_div)
 
-    return render_template('index.html', script=script, div=div)
-
+    return render_template('sentiment.html', script=script, div=div)
 
 
 if __name__ == '__main__':

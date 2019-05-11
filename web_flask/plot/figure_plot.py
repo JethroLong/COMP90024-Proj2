@@ -1,9 +1,11 @@
+import collections
 from collections import Counter
 
 import couchdb
 import matplotlib.pyplot as plt
 from bokeh.embed import components
-from bokeh.models import GMapOptions, Circle, GMapPlot, PanTool, WheelZoomTool, ResetTool, SaveTool
+from bokeh.models import GMapOptions, Circle, GMapPlot, PanTool, WheelZoomTool, ResetTool, SaveTool,\
+    NumeralTickFormatter
 from bokeh.plotting import figure
 from bokeh.resources import CDN
 
@@ -33,17 +35,17 @@ class Plotter:
         top10 = count_terms_only.most_common(10)
         x, y = zip(*top10)
 
-        f = figure(x_range=x, title="Hashtag Occurrences", title_location='above',
-                   toolbar_location='right', plot_height=399, plot_width=639, background_fill_color='gray',
+        f = figure(x_range=x, title="Hashtag Occurrences",
+                   toolbar_location='right', plot_height=399, plot_width=639, background_fill_color='white',
                    background_fill_alpha=0.2,
-                   border_fill_color='darkslategray',  # darkslategray
+                   border_fill_color='white',  # darkslategray
                    border_fill_alpha=0.5)
         f.title.text_font_size = '12pt'
-        f.title.text_color = 'white'
+        f.title.text_color = 'black'
         f.title.align = 'center'
-        f.xaxis.major_label_text_color = "white"
+        f.xaxis.major_label_text_color = "black"
         f.xaxis.major_label_text_font_size = '10pt'
-        f.yaxis.major_label_text_color = "white"
+        f.yaxis.major_label_text_color = "black"
         f.yaxis.major_label_text_font_size = '10pt'
 
         f.vbar(x=x, top=y, width=0.5, color='goldenrod')
@@ -69,7 +71,7 @@ class Plotter:
         AUS_BOUND_BOX = (113.338953078, -43.6345972634, 153.569469029, -10.6681857235)
         map_options = GMapOptions(lat=-28.7, lng=133.9, map_type="terrain", zoom=4, styles=style_str)
 
-        plot = GMapPlot(map_options=map_options, api_key=Gmap_API_key, plot_height=573, plot_width=925)
+        plot = GMapPlot(map_options=map_options, api_key=Gmap_API_key, plot_height=450, plot_width=666)  # h:573  w:925
 
         for each in data['data']:
             if AUS_BOUND_BOX[0] <= each['coordinates'][0] <= AUS_BOUND_BOX[2] and \
@@ -108,3 +110,61 @@ class Plotter:
         data = self.retrieve_data(doc_id=doc_id, db_name=db_name)
 
         return 'str', 'str'
+
+    def time_distribution(self, doc_id, db_name):
+        # retrieve data from db
+        data = self.retrieve_data(doc_id=doc_id, db_name=db_name)
+        original_data = data['data']
+        modified_data = original_data
+        modified_data['24'] = modified_data['0']
+        del modified_data['0']
+
+        s_data = {}
+        for k, v in modified_data.items():
+            nk_list = []
+            nk = int(k)
+            nk_list.append(nk)
+            for n in nk_list:
+                s_data[n] = v
+
+        od = collections.OrderedDict(sorted(s_data.items()))
+        sorted_data = {}
+        for k, v in od.items():
+            sorted_data[k] = v
+
+        r_data = {}
+        for k, v in sorted_data.items():
+            nk_list = []
+            nk = str(k)
+            nk_list.append(nk)
+            for n in nk_list:
+                r_data[n] = v
+
+        time = []
+        num = []
+        for k, v in r_data.items():
+            time.append(k)
+            num.append(v)
+
+        rate_list = []
+        suml = sum(num)
+        for n in num:
+            rate = n / suml
+            rate_list.append(rate)
+
+        TOOLTIPS = [("Number of Tweets", "@x"), ("Rate", "@y{0.00%}")]
+
+        p = figure(x_range=time, plot_height=400, plot_width=639, title="Time Distribution",
+                   toolbar_location='right', tools="hover, pan, save, reset, wheel_zoom", tooltips=TOOLTIPS)
+
+        # p.vbar(x=time, top=num, width=0.9)
+        p.line(time, rate_list, line_width=0.9)
+        p.yaxis.formatter = NumeralTickFormatter(format='00.00%')
+        p.xaxis.axis_label = 'Time (hour)'
+
+        p.xgrid.grid_line_color = None
+        p.y_range.start = 0
+
+        script_map, div_map = components(p)
+
+        return script_map, div_map

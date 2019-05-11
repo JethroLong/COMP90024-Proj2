@@ -3,12 +3,12 @@ import json
 import sys
 import os
 
-from harvester import StreamTwitter, Database
-from harvester.SearchTwitter import Search
+import Database, StreamTwitter
+from SearchTwitter import Search
 
 
 def main(argv):
-    with open("harvester_config.json", 'r') as template:
+    with open("./harvester_config.json", 'r') as template:
         data = json.load(template)
         Groups = data["Groups"]
         new_groups = keyword_distribution(Groups)
@@ -46,7 +46,7 @@ def main(argv):
 
 
 def keyword_distribution(Groups):
-    with open("offensive_words_corpus.txt", 'r') as corpus:
+    with open("./offensive_words_corpus.txt", 'r') as corpus:
         indicator = 0
         group_size = len(Groups)
         for keyword in corpus:
