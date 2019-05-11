@@ -1,9 +1,9 @@
 import json
 from tweepy import Stream, OAuthHandler
 from tweepy.streaming import StreamListener
-
+import sentiment
 # derived from <https://gist.github.com/graydon/11198540>
-from harvester import sentiment
+
 
 AUS_BOUND_BOX = (113.338953078, -43.6345972634, 153.569469029, -10.6681857235)
 

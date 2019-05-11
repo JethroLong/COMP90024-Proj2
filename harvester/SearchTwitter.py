@@ -4,7 +4,7 @@ from time import sleep
 import tweepy
 from tweepy import OAuthHandler
 
-from harvester import sentiment
+import sentiment
 
 
 class Search:
