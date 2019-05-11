@@ -23,7 +23,7 @@ class Plotter:
                 if data is not None:
                     break
             except Exception as e:
-                print(e)
+                print('No processed data for {}, please wait...'.format(doc_id))
         return data
 
     def hashtag_plot(self, doc_id, db_name):
@@ -116,8 +116,9 @@ class Plotter:
         data = self.retrieve_data(doc_id=doc_id, db_name=db_name)
         original_data = data['data']
         modified_data = original_data
-        modified_data['24'] = modified_data['0']
-        del modified_data['0']
+        if '0' in modified_data.keys():
+            modified_data['24'] = modified_data['0']
+            modified_data.pop('0')
 
         s_data = {}
         for k, v in modified_data.items():
