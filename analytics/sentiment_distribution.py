@@ -9,6 +9,7 @@ class SentimentPlaceAnalytics:
         pass
 
     def run(self):
+        print('Sentiment Place distribution analysis Start...')
         view = self.source_db.iterview(name=self.view_path, batch=10000)
         sentiment_cor_list = []
         for each in view:
@@ -36,4 +37,9 @@ class SentimentPlaceAnalytics:
             doc = self.results_db.get(record['_id'])
             doc['data'] = record['data']
             self.results_db.save(doc)
+
+        print('Sentiment Place distribution analysis complete ---- results_db/sentiment_distribution')
+
+
+
 
