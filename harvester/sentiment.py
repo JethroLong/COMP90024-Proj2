@@ -11,7 +11,10 @@ class SentimentAnalyzer:
             temp_scores = analyzer.polarity_scores(sentence)
             return temp_scores
         except Exception as e:
+            print('Vader lexicon not found')
+            print('Now start downloading...')
             nltk.download('vader_lexicon')
+            print('Download------------OK')
             return analyzer.polarity_scores(sentence)
 
 

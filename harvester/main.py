@@ -23,11 +23,16 @@ def main(argv):
         i = int(argv[2])
         if_key = argv[3]  # -k: streaming using keywords
         if argv[1] == 'stream' and 0 < i <= len(new_groups):
-            print("Now start Streaming...")
             if if_key == '-k':
                 db_name = 'keyword_tweets'
-            else:
+                print("Now start keyword Streaming...")
+            elif if_key == '-K':  # -K: streaming without keywords
+                print("Now start non-keyword Streaming...")
                 db_name = 'non_keyword_tweets'
+            else:
+                print('Optional command Error')
+                sys.exit(0)
+
             # connect to db
             db = Database.DB(url, db_name)
 
@@ -56,7 +61,7 @@ def keyword_distribution(Groups):
 
 
 if __name__ == '__main__':
-    # Shell: python3 main.py <mode: stream/search> <token group:1~4> <optional: -k>
+    # Shell: python3 main.py <mode: stream/search> <token group:1~4> <optional: -k / -K>
     main(sys.argv)
 
     # for testing
