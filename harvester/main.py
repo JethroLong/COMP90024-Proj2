@@ -35,9 +35,8 @@ def main(argv):
 
             # connect to db
             db = Database.DB(url, db_name)
-
             stream_mode = StreamTwitter.StreamRunner(db)
-            stream_mode.run(new_groups[i-1], if_key)
+            stream_mode.run(i, new_groups[i-1], if_key)
         elif argv[1] == 'search' and 0 < i <= len(new_groups):
             print("Now start Searching...")
             db_name = 'keyword_tweets'
@@ -62,6 +61,7 @@ def keyword_distribution(Groups):
 
 if __name__ == '__main__':
     # Shell: python3 main.py <mode: stream/search> <token group:1~4> <optional: -k / -K>
+
     main(sys.argv)
 
     # for testing

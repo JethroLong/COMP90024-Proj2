@@ -26,7 +26,6 @@ class Search:
             query = ' OR '.join(para_dict["keywords"][:10])  # query contains up to 10 keywords
         else:
             query = ' OR '.join(para_dict["keywords"])
-        print("query:  ", query)
 
         new_tweets = self.do_search(api, query, self.geocode, tweets_per_query, lang='en', since_id=since_id,
                                     max_id=max_id)
@@ -83,8 +82,6 @@ class Search:
         para_dict["since_id"] = -1
         para_dict["max_id"] = -1
         para_dict["keywords"] = search_keywords
-
-        print("Now start searching for ", para_dict)
         while True:
             try:
                 self.search_by_keyword(para_dict, api)

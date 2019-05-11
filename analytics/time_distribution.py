@@ -12,6 +12,7 @@ class TimeAnalytics:
         pass
 
     def run(self):
+        print('Time distribution analysis Start...')
         view = self.source_db.iterview(name=self.view_path, batch=10000)
         hours = []
         for each in view:
@@ -29,6 +30,7 @@ class TimeAnalytics:
             doc = self.results_db.get(record['_id'])
             doc['data'] = record['data']
             self.results_db.save(doc)
+        print('Time distribution analysis complete ---- results_db/time_distribution')
 
 
 class SentimentTimeAnalytics:
@@ -47,6 +49,7 @@ class SentimentTimeAnalytics:
             return 'neg'
 
     def run(self):
+        print('Sentiment Time distribution analysis Start...')
         view = self.source_db.iterview(name=self.view_path, batch=10000)
         sentiment_dict = {"morning": {}, "afternoon": {}, "evening": {}, "night": {}}
         for each in view:
@@ -83,3 +86,5 @@ class SentimentTimeAnalytics:
             doc = self.results_db.get(record['_id'])
             doc['data'] = record['data']
             self.results_db.save(doc)
+
+        print('Sentiment Time distribution analysis complete ---- results_db/sentiment_time')

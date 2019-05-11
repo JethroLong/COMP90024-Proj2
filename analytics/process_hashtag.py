@@ -10,10 +10,10 @@ class HashtagProcessor:
         hashtag_occurrence ={}
         for row in view:
             for each in row.value:
-                if each['text'].lower() not in hashtag_occurrence.keys():
-                    hashtag_occurrence[each['text']] = 1
+                if each['text'].upper() not in hashtag_occurrence.keys():
+                    hashtag_occurrence[each['text'].upper()] = 1
                 else:
-                    hashtag_occurrence[each['text']] += 1
+                    hashtag_occurrence[each['text'].upper()] += 1
 
         record = {"_id": "trending_hashtags", "data": hashtag_occurrence}
         try:
@@ -23,3 +23,4 @@ class HashtagProcessor:
             doc['data'] = record['data']
             self.results_db.save(doc)
 
+        print('Hashtag analysis complete ---- results_db/trending_hashtags')

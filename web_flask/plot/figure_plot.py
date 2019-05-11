@@ -12,7 +12,7 @@ from bokeh.resources import CDN
 
 class Plotter:
     def __init__(self):
-        self.url = 'http://localhost:5984'
+        self.url = 'http://172.26.38.109:5984'
         self.couch_server = couchdb.Server(url=self.url)
 
     def retrieve_data(self, doc_id, db_name):

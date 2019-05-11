@@ -38,7 +38,7 @@ class StreamRunner:
     def __init__(self, db):
         self.db = db
 
-    def run(self, group, if_key):
+    def run(self, i, group, if_key):
         access_token = group["access_token"]
         access_token_secret = group["access_token_secret"]
         consumer_key = group["consumer_key"]
@@ -51,10 +51,14 @@ class StreamRunner:
 
         twitter_stream = Stream(auth, MyListener(self.db))
 
-        if if_key == '-k':
-            twitter_stream.filter(track=keywords, locations=AUS_BOUND_BOX, languages=['en'])
-        else:
-            twitter_stream.filter(locations=AUS_BOUND_BOX, languages=['en'])
+        try:
+            if if_key == '-k':
+                twitter_stream.filter(track=keywords, locations=AUS_BOUND_BOX, languages=['en'])
+            elif if_key == '-K':
+                twitter_stream.filter(locations=AUS_BOUND_BOX, languages=['en'])
+        except Exception:
+            print("Group {} Stream Disconnected".format(i))
+            self.run(i, group, if_key)
 
 
 
