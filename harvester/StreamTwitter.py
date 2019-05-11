@@ -24,8 +24,8 @@ class MyListener (StreamListener):
             if 'sentiment' not in tweet.keys():
                 tweet['sentiment'] = sentiment.SentimentAnalyzer.get_scores(tweet["text"])
             self.db.store(tweet)
-        except Exception as e:
-            print(e)
+        except Exception:
+            pass
 
     def on_status(self, status):
         print(status)

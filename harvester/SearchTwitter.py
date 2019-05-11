@@ -34,7 +34,6 @@ class Search:
             # the most recent id is stored, to be used as the starting point for future
             para_dict["since_id"] = new_tweets[0].id
             for tweet in new_tweets:
-                print(tweet)
                 if 'sentiment' not in tweet._json.keys():
                     tweet._json['sentiment'] = sentiment.SentimentAnalyzer.get_scores(tweet._json["text"])
                 self.db.store(tweet._json)
@@ -90,7 +89,6 @@ class Search:
             try:
                 self.search_by_keyword(para_dict, api)
             except Exception as e:
-                print(e)
                 until = int(api.last_response.headers['x-rate-limit-reset'])
 
                 until = datetime.fromtimestamp(until)
