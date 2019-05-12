@@ -30,7 +30,8 @@ TIME_VIEW_FUNC = "function (doc) {\n  var utc_time = new Date(doc.created_at).ge
 
 SENTIMENT_TIME_VIEW = "function (doc) {\n  if (doc.sentiment != null) { \n var score = doc.sentiment.compound;\n var date = new Date(doc.created_at).getUTCHours();\n emit(doc._id, [date, score]);\n  }\n}"
 
-SENTIMENT_DISTRIBUTION_VIEW = "function (doc) {\n  var dict = {};\n  dict['sentiment'] = doc.sentiment.compound;\n  dict['text'] = doc.text;\n  if (doc.coordinates != null){\n    dict['coordinates'] = doc.coordinates;\n    emit(doc._id, dict)\n  }else if (doc.place != null){\n    dict['place'] = doc.place;\n    emit(doc._id, dict)\n  }else if (doc.geo != null){\n    dict['geo'] = doc.geo;\n    emit(doc._id, dict)\n  }\n}"
+SENTIMENT_DISTRIBUTION_VIEW = "function (doc) {\n  var dict = {};\n  dict['sentiment'] = doc.sentiment.compound;\n  dict['text'] = doc.text;\n  if (doc.coordinates != null){\n    dict['coordinates'] = doc.coordinates;\n    emit(doc._id, dict)\n  }\n}"
+
 
 def main():
 
