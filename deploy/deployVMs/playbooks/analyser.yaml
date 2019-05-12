@@ -1,0 +1,40 @@
+- name: Install analyser and its dependencies
+  hosts: analyser
+  remote_user: ubuntu
+  become: yes
+
+  tasks:
+  - name: add no_proxy to etc/enviroment on analyser
+    lineinfile:
+      dest: /etc/environment
+      line: no_proxy=localhost,127.0.0.1,127.0.1.1,ubuntu,analyser.novalocal,analyser
+
+  - name: install pip
+    #become: yes
+    apt:
+      name: python3-pip
+      state: present
+  
+  - name: clone git repository to analyser
+    git:
+      repo: https://github.com/JethroLong/COMP90024-Proj2.git
+      dest: /mnt/storage/COMP90024-Proj2
+
+################ Remember to change src path##################
+  - name: Copy hosts file to analyser
+    copy:
+      src: /Users/apple/Desktop/Ansible_latest/deployVMs/hosts
+      dest: /mnt/storage/COMP90024-Proj2/analytics/hosts   
+      owner: ubuntu
+      group: ubuntu
+      mode: 0777
+
+  # install python libraries
+  - name: install python libraries(Python 3.6 specifically)
+    become: yes
+    pip:
+      requirements: /mnt/storage/COMP90024-Proj2/analytics/requirements.txt
+      executable: pip-3.6
+
+  # - name: start analyser
+  #   shell: python3 /mnt/storage/COMP90024Proj2/analytics/analyze.py

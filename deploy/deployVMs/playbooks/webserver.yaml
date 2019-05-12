@@ -1,0 +1,43 @@
+- name: Install web server and its dependencies
+  hosts: webserver
+  remote_user: ubuntu
+  become: yes
+  
+  tasks:
+  - name: add no_proxy to etc/enviroment on webserver
+    lineinfile:
+      dest: /etc/environment
+      line: no_proxy=localhost,127.0.0.1,127.0.1.1,ubuntu,webserver.novalocal,webserver
+
+  - name: install pip
+    #become: yes
+    apt:
+      name: python3-pip
+      state: present
+
+  - name: clone git repository to webserver
+    git:
+      repo: https://github.com/JethroLong/COMP90024-Proj2.git
+      dest: /mnt/storage/COMP90024-Proj2
+
+################ Remember to change src path##################
+  - name: Copy hosts file to analyser
+    copy:
+      src: /Users/apple/Desktop/Ansible_latest/deployVMs/hosts
+      dest: /mnt/storage/COMP90024-Proj2/web_flask/hosts   
+      owner: ubuntu
+      group: ubuntu
+      mode: 0777
+
+  # install python libraries
+  - name: install python libraries(Python 3.6 specifically)
+    become: yes
+    pip:
+      requirements: /mnt/storage/COMP90024-Proj2/web_flask/requirements.txt
+      executable: pip-3.6
+
+  - name: start webserver
+    shell: |
+      sudo chmod -x /mnt/storage/COMP90024-Proj2/web_flask/web_server.py
+      python3 /mnt/storage/COMP90024-Proj2/web_flask/web_server.py
+

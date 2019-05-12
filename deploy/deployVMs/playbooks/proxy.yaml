@@ -1,0 +1,13 @@
+- hosts: all
+  remote_user: ubuntu
+  become: yes
+  
+  tasks:
+    - name: add internet proxy to evn file on all hosts
+      lineinfile:
+        dest: /etc/environment
+        line: '{{ item }}'
+      with_items:
+        - http_proxy="http://wwwproxy.unimelb.edu.au:8000"
+        - https_proxy="http://wwwproxy.unimelb.edu.au:8000"
+        - ftp_proxy="http://wwwproxy.unimelb.edu.au:8000"

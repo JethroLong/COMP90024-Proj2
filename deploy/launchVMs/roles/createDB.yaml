@@ -1,0 +1,33 @@
+# Create an instance for CouchDB and Harvester on NeCTAR
+- name: Create CouchDB instance
+  os_server:
+    name: '{{ db_instance_name }}'
+    image: '{{ db_instance_image }}'
+    key_name: '{{ db_instance_key_name }}'
+    flavor: '{{ db_instance_flavor }}'
+    availability_zone: '{{ availability_zone }}'
+    security_groups: '{{ sg_names }}'
+    volumes: '{{ os_vol_2_ids }}'
+    auto_floating_ip: yes
+    wait: yes
+    timeout: 600
+    state: present
+  register: os_instance_db
+
+- debug:
+    msg: "Instance {{ db_instance_name }} has been created. IP address is {{ os_instance_db.openstack.public_v4 }}"
+  when: os_instance_db.openstack is defined
+
+- name: Add instancec's IP addr to inventory
+  blockinfile:
+    dest: /Users/apple/Desktop/Ansible_latest/deployVMs/hosts
+    marker: "# DB ip"
+    block: |
+    
+      [couchdb]
+      {{ os_instance_db.openstack.public_v4 }}
+    backup: no
+
+# - name: Set names for instances'ip address
+#   set_fact:
+#     couchdbIP: '{{ os_instance_db.openstack.public_v4 }}'

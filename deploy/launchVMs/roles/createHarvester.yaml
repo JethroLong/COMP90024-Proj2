@@ -1,0 +1,29 @@
+# Create an instance for Harvester on NeCTAR
+- name: Create Harvester instance
+  os_server:
+    name: '{{ hr_instance_name }}'
+    image: '{{ hr_instance_image }}'
+    key_name: '{{ hr_instance_key_name }}'
+    flavor: '{{ hr_instance_flavor }}'
+    availability_zone: '{{ availability_zone }}'
+    security_groups: '{{ sg_names }}'
+    volumes: '{{ os_vol_4_ids }}'
+    auto_floating_ip: yes
+    wait: yes
+    timeout: 600
+    state: present
+  register: os_instance_hr
+
+- debug:
+    msg: "Instance {{ hr_instance_name }} has been created. IP address is {{ os_instance_hr.openstack.public_v4 }}"
+  when: os_instance_hr.openstack is defined
+
+- name: Add instancec's IP addr to inventory
+  blockinfile:
+    dest: /Users/apple/Desktop/Ansible_latest/deployVMs/hosts
+    marker: "# harvester ip"
+    block: |
+    
+      [harvester]
+      {{ os_instance_hr.openstack.public_v4 }}
+    backup: no

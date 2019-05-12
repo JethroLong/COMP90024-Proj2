@@ -1,0 +1,34 @@
+  
+# Create an instance for Analyser on NeCTAR
+- name: Create Analyser instance
+  os_server:
+    name: '{{ ar_instance_name }}'
+    image: '{{ ar_instance_image }}'
+    key_name: '{{ ar_instance_key_name }}'
+    flavor: '{{ ar_instance_flavor }}'
+    availability_zone: '{{ availability_zone }}'
+    security_groups: '{{ sg_names }}'
+    volumes: '{{ os_vol_3_ids }}'
+    auto_floating_ip: yes
+    wait: yes
+    timeout: 600
+    state: present
+  register: os_instance_ar
+
+- debug:
+    msg: "Instance {{ ar_instance_name }} has been created. IP address is {{ os_instance_ar.openstack.public_v4 }}"
+  when: os_instance_ar.openstack is defined
+
+- name: Add analyser instance's IP addr to inventory
+  blockinfile:
+    dest: /Users/apple/Desktop/Ansible_latest/deployVMs/hosts
+    marker: "# analyser ip"
+    block: |
+    
+      [analyser]
+      {{ os_instance_ar.openstack.public_v4 }}
+    backup: no
+
+# - name: Set names for instances'ip address
+#   set_fact:
+#     analyserIP: '{{ os_instance_ar.openstack.public_v4 }}'

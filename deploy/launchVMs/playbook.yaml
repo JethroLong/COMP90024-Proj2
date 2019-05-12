@@ -1,0 +1,14 @@
+- hosts: localhost
+  vars_files:
+    - host_vars/nectar.yaml
+  gather_facts: true
+
+  tasks:
+    #- include: roles/openstack-common
+    #- include: roles/openstack-volume.yaml
+    #- include: roles/openstack-security-group.yaml
+    #- include: roles/createDB.yaml
+    #- include: roles/createAnalyserInst.yaml
+    #- include: roles/createWSInst.yaml
+    #- include: roles/createHarvester.yaml
+    #- include: roles/openstack-testip.yaml
