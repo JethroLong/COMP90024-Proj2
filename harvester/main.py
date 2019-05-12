@@ -1,7 +1,8 @@
 import json
-import linecache
-
+import readhost
 import sys
+import os
+
 import Database, StreamTwitter
 from SearchTwitter import Search
 
@@ -16,8 +17,12 @@ def main(argv):
         search_keywords = data["search_keywords"]
 
         # import from system host file
-        url = data["db_url"]
-        url = get_db_url()
+        #url = data["db_url"]
+        couchdb_ip = json.loads(readhost.read())["couchdb"]
+        couchdb_port = str(5984)
+        url_str = 'http://' + couchdb_ip + ':' + couchdb_port
+        url = data["url_str"]
+        
         geocode = data["geocode"]
 
         i = int(argv[2])
@@ -57,19 +62,6 @@ def keyword_distribution(Groups):
             Groups[indicator % group_size]["keywords"].append(keyword[:-1])
             indicator += 1
     return Groups
-
-#
-# def get_db_url():
-#     HOST_FILE = "./hosts"
-#     with open(HOST_FILE, mode='r') as f:
-#         count = 0
-#         for line in f.readlines():
-#             if line.find("[couchdb]") >= 0:
-#                 couchdb = linecache.getlines(HOST_FILE)[count + 1].replace("\n", "")
-#             else:
-#                 pass
-#             count += 1
-#         return couchdb
 
 
 if __name__ == '__main__':

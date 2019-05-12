@@ -1,0 +1,35 @@
+
+# Create an instance for webserver on NeCTAR
+- name: Create webserver instance
+  os_server:
+    name: '{{ ws_instance_name }}'
+    image: '{{ ws_instance_image }}'
+    key_name: '{{ ws_instance_key_name }}'
+    flavor: '{{ ws_instance_flavor }}'
+    availability_zone: '{{ availability_zone }}'
+    security_groups: '{{ sg_names }}'
+    volumes: '{{ os_vol_1_ids }}'
+    auto_floating_ip: yes
+    wait: yes
+    timeout: 600
+    state: present
+  register: os_instance_ws
+
+- debug:
+    msg: "Instance {{ ws_instance_name }} has been created. IP address is {{ os_instance_ws.openstack.public_v4 }}"
+  when: os_instance_ws.openstack is defined
+
+- name: Add webserver instancec's IP addr to inventory
+  blockinfile:
+    dest: /Users/apple/Desktop/Ansible_latest/deployVMs/hosts
+    marker: "# webserver ip"
+    block: |
+    
+      [webserver]
+      {{ os_instance_ws.openstack.public_v4 }}
+    backup: no
+
+# - name: Set names for instances'ip address
+#   set_fact:
+#     webserverIP: '{{ os_instance_ws.openstack.public_v4 }}'
+  

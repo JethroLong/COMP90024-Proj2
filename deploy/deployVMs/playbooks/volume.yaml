@@ -1,0 +1,31 @@
+- name: format and mount volume
+  hosts: all
+  remote_user: ubuntu
+  become: yes
+
+  tasks:
+  - name: format volume
+    filesystem:
+      fstype: ext4
+      dev: /dev/vdb
+
+  #permission: everyone can read, write and execute
+  - name: create a mount directory
+    file:
+      # add COMP90024-Proj2 folder to volume
+      path: /mnt/storage
+      state: directory
+      mode: 0777
+
+  - name: mount volume
+    mount:
+      path: /mnt/storage
+      src: /dev/vdb
+      fstype: ext4
+      state: mounted
+
+  # - name: create mount dir
+  #   file:
+  #     path: /mnt/storage
+  #     state: directory
+  #     mode: 0777

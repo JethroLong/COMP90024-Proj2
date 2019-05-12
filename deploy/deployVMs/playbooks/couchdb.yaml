@@ -1,0 +1,49 @@
+- name: Install CouchDB and its dependencies
+  hosts: couchdb
+  remote_user: ubuntu
+  become: yes
+
+  tasks:
+  - name: add no_proxy to /etc/environment
+    lineinfile:
+        dest: /etc/environment
+        line: no_proxy=localhost,127.0.0.1,127.0.1.1,ubuntu,couchdb.novalocal,couchdb
+        
+  - name: install dependencies
+    apt: 
+      name: "{{ item }}"
+      state: present
+    with_items:
+      - curl
+
+  # - name: add repository for couch
+  #   apt_repository:
+  #     repo: ppa:couchdb/stable
+  #     state: present
+  
+  - name: install CouchDB
+    apt: 
+      name: couchdb
+      update_cache: yes
+      state: present
+
+  # - name: secure file ownerships
+  #   command: "{{ item }}"
+  #   with_items:
+  #     - sudo chown -R couchdb:couchdb /usr/bin/couchdb /etc/couchdb /usr/share/couchdb
+  #     - sudo chmod -R 0777 /usr/bin/couchdb /etc/couchdb /usr/share/couchdb
+
+
+  - name: change working directory, remove localhost binding, add empty DB
+    command: "{{ item }}"
+    with_items:
+      # - curl -X PUT http://localhost:5984/_node/_local/_config/couchdb/database_dir -d '"/mnt/storage/couchdb"'
+      # - curl -X PUT http://localhost:5984/_node/_local/_config/couchdb/view_index_dir -d '"/mnt/storage/couchdb"'
+      - curl -X PUT http://localhost:5984/_node/_local/_config/chttpd/bind_address -d '"0.0.0.0"'
+      # - curl -X PUT http://localhost:5984/tweets
+
+  - name: Restart CouchDB service
+    systemd:
+      state: restarted
+      daemon_reload: yes
+      name: couchdb

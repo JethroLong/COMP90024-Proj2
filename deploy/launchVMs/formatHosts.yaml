@@ -1,0 +1,9 @@
+# Remove any line starting with '#' in the inventory file /deployVMs/hosts
+- hosts: localhost
+  tasks:
+  - name: remove lines with '#' from hosts
+    lineinfile:
+      dest: /Users/apple/Desktop/Ansible_latest/deployVMs/hosts
+      regexp: '#'
+      state: absent
+      
