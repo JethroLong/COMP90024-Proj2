@@ -3,7 +3,7 @@ import linecache
 import json
 
 #HOST_FILE = "./deployVMs/hosts"
-HOST_FILE = "/home/ubuntu/hosts"
+HOST_FILE = "/mnt/storage/COMP90024-Proj2/web_flask/hosts"
 
 def readhost():
     couchdb = None
