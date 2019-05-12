@@ -3,6 +3,7 @@ from collections import Counter
 
 import couchdb
 import matplotlib.pyplot as plt
+from bokeh.core.property.dataspec import value
 from bokeh.embed import components
 from bokeh.models import GMapOptions, Circle, GMapPlot, PanTool, WheelZoomTool, ResetTool, SaveTool,\
     NumeralTickFormatter
@@ -39,10 +40,11 @@ class Plotter:
         TOOLTIPS = [('', "@top")]
 
         f = figure(x_range=x, title="Hashtag Occurrences", tooltips=TOOLTIPS,
-                   toolbar_location='right', plot_height=399, plot_width=639, background_fill_color='white',
+                   toolbar_location='right', plot_height=500, plot_width=639, background_fill_color='white',
                    background_fill_alpha=0.2,
                    border_fill_color='white',  # darkslategray
                    border_fill_alpha=0.5)
+
         f.title.text_font_size = '12pt'
         f.title.text_color = 'black'
         f.title.align = 'center'
@@ -51,7 +53,7 @@ class Plotter:
         f.yaxis.major_label_text_color = "black"
         f.yaxis.major_label_text_font_size = '10pt'
 
-        f.vbar(x=x, top=y, width=0.5, color='goldenrod')
+        f.vbar(x=x, top=y, width=0.5, color='#c9d9d9')
         f.y_range.start = 0
         f.x_range.range_padding = 0.1
         f.xaxis.major_label_orientation = -1
@@ -101,12 +103,55 @@ class Plotter:
         script_map, div_map = components(plot)
         return script_map, div_map
 
-    def time_sentiment_plot(self, doc_id, db_name):
+    def sentiment_of_the_day(self, doc_id, db_name):
         # retrieve data from db
         data = self.retrieve_data(doc_id=doc_id, db_name=db_name)
+        original_data = data['data']
+        time_list = list(original_data.keys())
+        sorted_original_data = {}
+        for time, info in original_data.items():
+            sorted_item = {}
+            if info:
+                sorted_item['neg'] = info['neg']
+                sorted_item['neu'] = info['neu']
+                sorted_item['pos'] = info['pos']
+                sorted_original_data[time] = sorted_item
+        dict_list = list(sorted_original_data.values())
+        bar_data_dict = {}
+        bar_data_dict['time'] = time_list
+        bar_data_dict['neg'] = []
+        bar_data_dict['neu'] = []
+        bar_data_dict['pos'] = []
+        for time, info in sorted_original_data.items():
+            for k, v in info.items():
+                bar_data_dict_item = {}
+                bar_data_dict_item[k] = v
+                if k == 'neg':
+                    bar_data_dict['neg'].append(v)
+                if k == 'neu':
+                    bar_data_dict['neu'].append(v)
+                if k == 'pos':
+                    bar_data_dict['pos'].append(v)
+        sentiment_list = list(dict_list[0].keys())
+        colors = ["lightcoral", "burlywood", "mediumseagreen"]
 
-        ####
-        # draw
+        p = figure(x_range=time_list, plot_height=450, plot_width=666, title="Sentiments of the Day",
+                   tools="hover, pan, save, reset", tooltips="$name @time: @$name")
+
+        p.vbar_stack(sentiment_list, x='time', width=0.7, color=colors, source=bar_data_dict,
+                     legend=[value(x) for x in sentiment_list])
+
+        p.y_range.start = 0
+        p.x_range.range_padding = 0.1
+        p.xgrid.grid_line_color = None
+        p.axis.minor_tick_line_color = None
+        p.outline_line_color = None
+        p.legend.location = "top_right"
+        p.legend.orientation = "horizontal"
+
+        script, div = components(p)
+
+        return script, div
 
     def tweets_hour_breakdown(self, doc_id, db_name):
         # retrieve data from db
@@ -156,14 +201,14 @@ class Plotter:
             rate = n / suml
             rate_list.append(rate)
 
-        TOOLTIPS = [("Number of Tweets", "@x"), ("Rate", "@y{0.00%}")]
+        TOOLTIPS = [("Rate", "@y{0.00%}")]
 
         p = figure(x_range=time, plot_height=400, plot_width=639, title="Time Distribution",
                    toolbar_location='right', tools="hover, pan, save, reset, wheel_zoom", tooltips=TOOLTIPS)
 
         # p.vbar(x=time, top=num, width=0.9)
         p.line(time, rate_list, line_width=0.9)
-        p.yaxis.formatter = NumeralTickFormatter(format='00.00%')
+        p.yaxis.formatter = NumeralTickFormatter(format='0.00%')
         p.xaxis.axis_label = 'Time (hour)'
 
         p.xgrid.grid_line_color = None

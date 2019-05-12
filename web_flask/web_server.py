@@ -13,16 +13,17 @@ def home():
     plotter = Plotter()
 
     # draw figures
+    # Trending hashtags -- 0
     temp_script, temp_div = plotter.hashtag_plot(doc_id='trending_hashtags', db_name='results')
     script.append(temp_script)
     div.append(temp_div)
 
-    # tweets time distribution
+    # tweets time distribution --1
     temp_script, temp_div = plotter.time_distribution(doc_id='time_distribution', db_name='results')
     script.append(temp_script)
     div.append(temp_div)
 
-    # education
+    # education --2
     temp_script, temp_div = plotter.time_distribution(doc_id='time_distribution', db_name='results')
     script.append(temp_script)
     div.append(temp_div)
@@ -36,10 +37,10 @@ def sentiment():
     div = []
     plotter = Plotter()
 
-    # interactive map
-    # temp_script, temp_div = plotter.interactive_map(doc_id='sentiment_distribution', db_name='results')
-    # script.append(temp_script)
-    # div.append(temp_div)
+    # Sentiment of the Day -- 0
+    temp_script, temp_div = plotter.sentiment_of_the_day(doc_id='sentiment_time', db_name='results')
+    script.append(temp_script)
+    div.append(temp_div)
 
     return render_template('sentiment.html', script=script, div=div)
 

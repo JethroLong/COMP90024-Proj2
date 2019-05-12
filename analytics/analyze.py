@@ -16,16 +16,15 @@ no_keywords_tweets = 'non_keyword_tweets'
 
 # map functions to be added or edited
 ALL_DOC_VIEW_FUNC = "function (doc) {\n emit(doc._id, doc); \n}"
-ALL_TEXT_VIEW_FUNC = "function (doc) {\n if (doc.text != null) {\n  emit(doc._id, doc.text);\n }\n}"
+HAS_GEO_VIEW_FUNC = "function (doc) {\n  if (doc.coordinates != null){\n    var x = {};\n    x['coordinates'] =  doc.coordinates.coordinates;\n    x['text'] = doc.text;\n    emit(doc._id, x);\n  }\n}"
+
 HASHTAG_VIEW_FUNC = "function (doc) {\n  if (doc.entities.hashtags.length > 0) {\n emit(doc._id, doc.entities.hashtags);\n  }\n}"
 
 TIME_VIEW_FUNC = "function (doc) {\n  var utc_time = new Date(doc.created_at).getUTCHours();\n  emit(doc._id, utc_time); \n}"
-DOC_PLACE_VIEW = "function (doc) {\n  if (doc.geo != null) {\n    emit(doc._i d, doc);\n  } else if (doc.coordinates != null) {\n    emit(doc._id, doc);\n  } else if (doc.place != null) {\n    emit(doc._id, doc);\n  }\n}"
 
 SENTIMENT_TIME_VIEW = "function (doc) {\n  if (doc.sentiment != null) { \n var score = doc.sentiment.compound;\n var date = new Date(doc.created_at).getUTCHours();\n emit(doc._id, [date, score]);\n  }\n}"
 
 SENTIMENT_DISTRIBUTION_VIEW = "function (doc) {\n  var dict = {};\n  dict['sentiment'] = doc.sentiment.compound;\n  dict['text'] = doc.text;\n  if (doc.coordinates != null){\n    dict['coordinates'] = doc.coordinates;\n    emit(doc._id, dict)\n  }\n}"
-
 
 
 def main():
@@ -72,8 +71,6 @@ def main():
     sent_area_processor = SentimentPlaceAnalytics(source_db=no_keywords_db, view_path=view_path,
                                                  results_db=results_db)
     sent_area_processor.run()
-
-
 
 
 if __name__ == '__main__':
