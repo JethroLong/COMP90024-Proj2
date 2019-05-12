@@ -1,13 +1,17 @@
+import json
+
 import couchdb
 import folium
 import pandas as pd
 from folium.plugins import MarkerCluster
+import readhost
 
 
 class DrawMap:
     def __init__(self):
-        self.url = 'http://172.26.38.109:5984'
-        # self.url = 'http://localhost:5984'
+        couchdb_ip = json.loads(readhost.read())["couchdb"]
+        couchdb_port = str(5984)
+        self.url = "http://{}:{}".format(couchdb_ip, couchdb_port)
         self.couch_server = couchdb.Server(url=self.url)
 
     def retrieve_data(self, doc_id, db_name):
@@ -52,29 +56,18 @@ class DrawMap:
         data = self.retrieve_data(doc_id, db_name)
         df = pd.DataFrame(data['data'])
 
-        map = folium.Map(location=centeroid, zoom_start=5, tiles='OpenStreetMap')
-        tile = folium.TileLayer('Mapbox Control Room').add_to(map)
-        tile = folium.TileLayer('Stamen Terrain').add_to(map)
-        tile = folium.TileLayer('Stamen Toner').add_to(map)
-        tile = folium.TileLayer('stamenwatercolor').add_to(map)
-        tile = folium.TileLayer('cartodbpositron').add_to(map)
+        map = folium.Map(location=centeroid, zoom_start=4, tiles='OpenStreetMap')
+        folium.TileLayer('Mapbox Control Room').add_to(map)
+        folium.TileLayer('Stamen Terrain').add_to(map)
+        folium.TileLayer('Stamen Toner').add_to(map)
+        folium.TileLayer('stamenwatercolor').add_to(map)
+        folium.TileLayer('cartodbpositron').add_to(map)
 
         cluster = MarkerCluster(name='Cluster')
         fg = folium.FeatureGroup(name='Sentiment Distribution')
         pos_fg = folium.FeatureGroup(name='Positive')
         neu_fg = folium.FeatureGroup(name='Neutral')
         neg_fg = folium.FeatureGroup(name='Negative')
-
-
-        # for index, row in df.iterrows():
-        #     cor = row['coordinates']
-        #     if AUS_BOUND_BOX[0] <= cor[0] <= AUS_BOUND_BOX[2] and AUS_BOUND_BOX[1] <= cor[1] <= AUS_BOUND_BOX[3]:
-        #         cluster.add_child(folium.Marker(location=cor[::-1], popup=(folium.Popup(row['text'])),
-        #                                         icon=(folium.Icon(color=self.set_color(row['sentiment'])))))
-        #
-        # fg.add_child(cluster)
-        # map.add_child(fg)
-        # folium.LayerControl().add_to(map)
 
         for index, row in df.iterrows():
             cor = row['coordinates']

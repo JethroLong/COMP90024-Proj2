@@ -87,7 +87,6 @@ class Search:
                 self.search_by_keyword(para_dict, api)
             except Exception as e:
                 until = int(api.last_response.headers['x-rate-limit-reset'])
-
                 until = datetime.fromtimestamp(until)
                 delay = (until - datetime.now()).total_seconds()
                 print("Rate Limit Reached! Search API not available until {}.".format(until))

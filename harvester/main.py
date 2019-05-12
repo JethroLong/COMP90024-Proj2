@@ -12,17 +12,17 @@ def main(argv):
         data = json.load(template)
         Groups = data["Groups"]
         new_groups = keyword_distribution(Groups)
+
         # search_keywords is of length 10, derived from
         # https://listverse.com/2015/09/29/10-offensive-english-words-with-hazy-origins/
         search_keywords = data["search_keywords"]
+        # url = data["db_url"]
 
         # import from system host file
-        #url = data["db_url"]
         couchdb_ip = json.loads(readhost.read())["couchdb"]
         couchdb_port = str(5984)
-        url_str = 'http://' + couchdb_ip + ':' + couchdb_port
-        url = data["url_str"]
-        
+        url = "http://{}:{}".format(couchdb_ip, couchdb_port)
+
         geocode = data["geocode"]
 
         i = int(argv[2])
