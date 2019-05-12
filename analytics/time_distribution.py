@@ -40,7 +40,8 @@ class SentimentTimeAnalytics:
         self.source_db = source_db
         self.results_db = results_db
 
-    def sentiment_classifier(self, compound):
+    @staticmethod
+    def sentiment_classifier(compound):
         if compound >= 0.05:
             return 'pos'
         elif -0.05 < compound < 0.05:

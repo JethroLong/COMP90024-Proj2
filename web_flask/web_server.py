@@ -1,7 +1,7 @@
 from flask import Flask, render_template
 
-from web_flask.plot.draw_map import DrawMap
-from web_flask.plot.figure_plot import Plotter
+from plot.draw_map import DrawMap
+from plot.figure_plot import Plotter
 
 web_app = Flask(__name__)
 

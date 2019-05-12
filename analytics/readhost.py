@@ -12,7 +12,7 @@ def readhost():
     harvester = None
     hdict = dict()
     
-    with open (HOST_FILE,mode='r') as f:
+    with open(HOST_FILE, mode='r') as f:
         count = 0
         for line in f.readlines():
             

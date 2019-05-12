@@ -1,21 +1,14 @@
 import couchdb
 import readhost
 import json
+import create_views
 
 from couchdb import PreconditionFailed
-
-import create_views
 from process_hashtag import HashtagProcessor
 from time_distribution import TimeAnalytics, SentimentTimeAnalytics
 from sentiment_distribution import SentimentPlaceAnalytics
 
-# url = 'http://127.0.0.1:5984/'
-
-
-#url = "http://172.26.38.109:5984"
-couchdb_ip = json.loads(readhost.read())["couchdb"]
-couchdb_port = str(5984)
-url = 'http://' + couchdb_ip + ':' + couchdb_port
+# url = "http://172.26.38.109:5984"
 
 keywords_tweets = 'keyword_tweets'
 no_keywords_tweets = 'non_keyword_tweets'
@@ -33,7 +26,15 @@ SENTIMENT_TIME_VIEW = "function (doc) {\n  if (doc.sentiment != null) { \n var s
 SENTIMENT_DISTRIBUTION_VIEW = "function (doc) {\n  var dict = {};\n  dict['sentiment'] = doc.sentiment.compound;\n  dict['text'] = doc.text;\n  if (doc.coordinates != null){\n    dict['coordinates'] = doc.coordinates;\n    emit(doc._id, dict)\n  }\n}"
 
 
+def get_db_url():
+    couchdb_ip = json.loads(readhost.read())["couchdb"]
+    couchdb_port = str(5984)
+    url = "http://{}:{}".format(couchdb_ip, couchdb_port)
+    return url
+
+
 def main():
+    url = get_db_url()
 
     # connect to couch server / tweets dbs
     couch_server = couchdb.Server(url=url)
@@ -75,7 +76,7 @@ def main():
                                          mapFunc=SENTIMENT_DISTRIBUTION_VIEW,
                                          overwrite=False)
     sent_area_processor = SentimentPlaceAnalytics(source_db=no_keywords_db, view_path=view_path,
-                                                 results_db=results_db)
+                                                  results_db=results_db)
     sent_area_processor.run()
 
 
