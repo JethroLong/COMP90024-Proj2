@@ -2,7 +2,8 @@
 import linecache
 import json
 
-HOST_FILE = "./deployVMs/hosts"
+#HOST_FILE = "./deployVMs/hosts"
+HOST_FILE = "/home/ubuntu/hosts"
 
 def readhost():
     couchdb = None
