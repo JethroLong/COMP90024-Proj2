@@ -1,9 +1,5 @@
 import couchdb
 
-ALL_DOC_VIEW_FUNC = "function (doc) {\n emit(doc._id, doc); \n}"
-ALL_TEXT_VIEW_FUNC = "function (doc) {\n if (doc.text != null) {\n  emit(doc._id, doc.text);\n }\n}"
-HAS_GEO_VIEW_FUNC = "function (doc) {\n  if (doc.geo != null) {\n     emit(doc._id, doc.geo);\n  }\n}"
-
 
 def create_view(url, db_name, view_name, mapFunc, reduceFunc=None, overwrite=False):
     server = couchdb.Server(url=url)

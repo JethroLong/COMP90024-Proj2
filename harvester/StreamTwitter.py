@@ -31,7 +31,7 @@ class MyListener (StreamListener):
         print(status)
 
     def on_error(self, status_code):
-        print("error: ", status_code)
+        print(status_code)
 
 
 class StreamRunner:

@@ -1,3 +1,6 @@
+from text_tokenizer import TextProcessor
+
+
 class SentimentPlaceAnalytics:
 
     def __init__(self, source_db, view_path, results_db):
@@ -17,18 +20,18 @@ class SentimentPlaceAnalytics:
             if 'coordinates' in each.value.keys():
                 temp_dict['coordinates'] = each.value['coordinates']['coordinates']
                 temp_dict['sentiment'] = each.value['sentiment']
-                sentiment_cor_list.append(temp_dict)
-            elif 'geo' in each.value.keys():
-                temp_dict['coordinates'] = each.value['geo']['coordinates'][::-1]
-                temp_dict['sentiment'] = each.value['sentiment']
-                sentiment_cor_list.append(temp_dict)
-            elif 'place' in each.value.keys():
-                if 'coordinates' in each.value['place']['bounding_box'].keys():
-                    x_list = [x[0] for x in each.value['place']['bounding_box']['coordinates'][0]]
-                    y_list = [x[1] for x in each.value['place']['bounding_box']['coordinates'][0]]
-                    temp_dict['coordinates'] = [sum(x_list) / float(len(x_list)), sum(y_list) / float(len(y_list))]
-                    temp_dict['sentiment'] = each.value['sentiment']
-                    sentiment_cor_list.append(temp_dict)
+            # elif 'geo' in each.value.keys():
+            #     temp_dict['coordinates'] = each.value['geo']['coordinates'][::-1]
+            #     temp_dict['sentiment'] = each.value['sentiment']
+            # elif 'place' in each.value.keys():
+            #     if 'coordinates' in each.value['place']['bounding_box'].keys():
+            #         x_list = [x[0] for x in each.value['place']['bounding_box']['coordinates'][0]]
+            #         y_list = [x[1] for x in each.value['place']['bounding_box']['coordinates'][0]]
+            #         temp_dict['coordinates'] = [sum(x_list) / float(len(x_list)), sum(y_list) / float(len(y_list))]
+            #         temp_dict['sentiment'] = each.value['sentiment']
+            temp_dict['text'] = TextProcessor.remove_pattern(each.value['text'])
+            sentiment_cor_list.append(temp_dict)
+
         record = {'_id': "sentiment_distribution", "data": sentiment_cor_list}
 
         try:

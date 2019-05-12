@@ -40,7 +40,9 @@ class Plotter:
         top10 = count_terms_only.most_common(10)
         x, y = zip(*top10)
 
-        f = figure(x_range=x, title="Hashtag Occurrences",
+        TOOLTIPS = [('', "@top")]
+
+        f = figure(x_range=x, title="Hashtag Occurrences", tooltips=TOOLTIPS,
                    toolbar_location='right', plot_height=399, plot_width=639, background_fill_color='white',
                    background_fill_alpha=0.2,
                    border_fill_color='white',  # darkslategray
