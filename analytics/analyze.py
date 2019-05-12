@@ -24,7 +24,8 @@ DOC_PLACE_VIEW = "function (doc) {\n  if (doc.geo != null) {\n    emit(doc._i d,
 
 SENTIMENT_TIME_VIEW = "function (doc) {\n  if (doc.sentiment != null) { \n var score = doc.sentiment.compound;\n var date = new Date(doc.created_at).getUTCHours();\n emit(doc._id, [date, score]);\n  }\n}"
 
-SENTIMENT_DISTRIBUTION_VIEW = "function (doc) {\n  var dict = {};\n  dict['sentiment'] = doc.sentiment.compound;\n  dict['text'] = doc.text;\n  if (doc.coordinates != null){\n    dict['coordinates'] = doc.coordinates;\n    emit(doc._id, dict)\n  }else if (doc.place != null){\n    dict['place'] = doc.place;\n    emit(doc._id, dict)\n  }else if (doc.geo != null){\n    dict['geo'] = doc.geo;\n    emit(doc._id, dict)\n  }\n}"
+SENTIMENT_DISTRIBUTION_VIEW = "function (doc) {\n  var dict = {};\n  dict['sentiment'] = doc.sentiment.compound;\n  dict['text'] = doc.text;\n  if (doc.coordinates != null){\n    dict['coordinates'] = doc.coordinates;\n    emit(doc._id, dict)\n  }\n}"
+
 
 
 def main():
@@ -71,6 +72,8 @@ def main():
     sent_area_processor = SentimentPlaceAnalytics(source_db=no_keywords_db, view_path=view_path,
                                                  results_db=results_db)
     sent_area_processor.run()
+
+
 
 
 if __name__ == '__main__':

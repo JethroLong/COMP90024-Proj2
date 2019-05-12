@@ -26,7 +26,7 @@ class DB:
                 temp_tweet["_id"] = temp_tweet["id_str"]  # set the primary key
                 self.database.save(temp_tweet)
             else:
-                print("duplicates")
+                pass
         except Exception as e:
             pass
         self.lock.release()

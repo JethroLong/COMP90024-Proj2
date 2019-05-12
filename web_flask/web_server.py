@@ -1,5 +1,6 @@
 from flask import Flask, render_template
 
+from web_flask.plot.draw_map import DrawMap
 from web_flask.plot.figure_plot import Plotter
 
 web_app = Flask(__name__)
@@ -21,6 +22,11 @@ def home():
     script.append(temp_script)
     div.append(temp_div)
 
+    # education
+    temp_script, temp_div = plotter.time_distribution(doc_id='time_distribution', db_name='results')
+    script.append(temp_script)
+    div.append(temp_div)
+
     return render_template('index.html', script=script, div=div)
 
 
@@ -31,11 +37,17 @@ def sentiment():
     plotter = Plotter()
 
     # interactive map
-    temp_script, temp_div = plotter.interactive_map(doc_id='sentiment_distribution', db_name='results')
-    script.append(temp_script)
-    div.append(temp_div)
+    # temp_script, temp_div = plotter.interactive_map(doc_id='sentiment_distribution', db_name='results')
+    # script.append(temp_script)
+    # div.append(temp_div)
 
     return render_template('sentiment.html', script=script, div=div)
+
+
+@web_app.route('/map')
+def get_map():
+    m = DrawMap().mapper(doc_id='sentiment_distribution', db_name='results')
+    return m.get_root().render()
 
 
 if __name__ == '__main__':

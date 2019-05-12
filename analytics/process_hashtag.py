@@ -7,7 +7,7 @@ class HashtagProcessor:
 
     def run(self):
         print('Hashtag analysis start...')
-        view = self.source_db.iterview(name=self.view_path, batch=10000)
+        view = self.source_db.view(name=self.view_path)
         hashtag_occurrence ={}
         for row in view:
             for each in row.value:
