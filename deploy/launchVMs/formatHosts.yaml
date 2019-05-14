@@ -3,7 +3,8 @@
   tasks:
   - name: remove lines with '#' from hosts
     lineinfile:
-      dest: /Users/apple/Desktop/Ansible_latest/deployVMs/hosts
+      #dest: /Users/apple/Desktop/Ansible_latest/deployVMs/hosts
+      dest: ../deployVMs/hosts
       regexp: '#'
       state: absent
       

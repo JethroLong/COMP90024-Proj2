@@ -21,7 +21,8 @@
 
 - name: Add analyser instance's IP addr to inventory
   blockinfile:
-    dest: /Users/apple/Desktop/Ansible_latest/deployVMs/hosts
+    #dest: /Users/apple/Desktop/Ansible_latest/deployVMs/hosts
+    dest: ../../deployVMs/hosts
     marker: "# analyser ip"
     block: |
     
