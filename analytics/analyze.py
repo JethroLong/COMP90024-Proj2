@@ -1,7 +1,7 @@
 import sys
 
 import couchdb
-import readhost
+from harvester.read_host import ReadHost
 import json
 import create_views
 
@@ -10,7 +10,6 @@ from process_hashtag import HashtagProcessor
 from time_distribution import TimeAnalytics, SentimentTimeAnalytics
 from sentiment_distribution import SentimentPlaceAnalytics
 
-# url = "http://172.26.38.109:5984"
 
 keywords_tweets = 'keyword_tweets'
 no_keywords_tweets = 'non_keyword_tweets'
@@ -29,10 +28,10 @@ SENTIMENT_DISTRIBUTION_VIEW = "function (doc) {\n  var dict = {};\n  dict['senti
 
 
 def get_db_url():
-    # couchdb_ip = json.loads(readhost.read())["couchdb"]
-    #     # couchdb_port = str(5984)
-    #     # url = "http://{}:{}".format(couchdb_ip, couchdb_port)
-    url = "http://172.26.38.109:5984"
+    couchdb_ip = json.loads(ReadHost.read())["couchdb"]
+    couchdb_port = str(5984)
+    url = "http://{}:{}".format(couchdb_ip, couchdb_port)
+    # url = "http://172.26.38.109:5984"
     return url
 
 
