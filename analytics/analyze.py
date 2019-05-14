@@ -1,3 +1,5 @@
+import sys
+
 import couchdb
 import readhost
 import json
@@ -27,13 +29,14 @@ SENTIMENT_DISTRIBUTION_VIEW = "function (doc) {\n  var dict = {};\n  dict['senti
 
 
 def get_db_url():
-    couchdb_ip = json.loads(readhost.read())["couchdb"]
-    couchdb_port = str(5984)
-    url = "http://{}:{}".format(couchdb_ip, couchdb_port)
+    # couchdb_ip = json.loads(readhost.read())["couchdb"]
+    #     # couchdb_port = str(5984)
+    #     # url = "http://{}:{}".format(couchdb_ip, couchdb_port)
+    url = "http://172.26.38.109:5984"
     return url
 
 
-def main():
+def main(overwrite=False):
     url = get_db_url()
 
     # connect to couch server / tweets dbs
@@ -51,7 +54,7 @@ def main():
     # create views
     view_path = create_views.create_view(url=url, db_name=keywords_tweets, view_name='hashtags',
                                          mapFunc=HASHTAG_VIEW_FUNC,
-                                         overwrite=False)
+                                         overwrite=overwrite)
     hashtag_processor = HashtagProcessor(source_db=keywords_db, view_path=view_path, results_db=results_db)
     hashtag_processor.run()
 
@@ -59,14 +62,14 @@ def main():
     # create view
     view_path = create_views.create_view(url=url, db_name=keywords_tweets, view_name='time_distribution',
                                          mapFunc=TIME_VIEW_FUNC,
-                                         overwrite=False)
+                                         overwrite=overwrite)
     swear_time_processor = TimeAnalytics(source_db=keywords_db, view_path=view_path, results_db=results_db)
     swear_time_processor.run()
 
     # sentiment analysis with regard to parts of a day
     view_path = create_views.create_view(url=url, db_name=no_keywords_tweets, view_name='sentiment_time',
                                          mapFunc=SENTIMENT_TIME_VIEW,
-                                         overwrite=False)
+                                         overwrite=overwrite)
     sentiment_time_processor = SentimentTimeAnalytics(source_db=no_keywords_db, view_path=view_path,
                                                       results_db=results_db)
     sentiment_time_processor.run()
@@ -74,11 +77,20 @@ def main():
     # sentiment distribution on map
     view_path = create_views.create_view(url=url, db_name=no_keywords_tweets, view_name='sentiment_distribution',
                                          mapFunc=SENTIMENT_DISTRIBUTION_VIEW,
-                                         overwrite=False)
+                                         overwrite=overwrite)
     sent_area_processor = SentimentPlaceAnalytics(source_db=no_keywords_db, view_path=view_path,
                                                   results_db=results_db)
     sent_area_processor.run()
 
+    # correlation
+    # view_path = create_views.create_view(url=url, db_name=no_keywords_tweets, view_name='sentiment_distribution',
+    #                                      mapFunc=SENTIMENT_DISTRIBUTION_VIEW,
+    #                                      overwrite=False)
+    # sent_area_processor = SentimentPlaceAnalytics(source_db=no_keywords_db, view_path=view_path,
+    #                                               results_db=results_db)
+    # sent_area_processor.run()
+
 
 if __name__ == '__main__':
-    main()
+    overwrite = sys.argv[1] if len(sys.argv) > 1 else False
+    main(overwrite)

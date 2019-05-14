@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>sentiment</title>
+    <meta name="referrer" content="same-origin">
+    <meta name="viewport" content="width=960">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/site.20190513150647.css')}}" type="text/css">
+    <link rel="stylesheet" href="https://cdn.pydata.org/bokeh/release/bokeh-1.1.0.min.css" type="text/css"/>
+    <script type="text/javascript" src="https://cdn.pydata.org/bokeh/release/bokeh-1.1.0.min.js"></script>
+    <!--[if lte IE 7]>
+    <link rel="stylesheet" href="css/site.20190513150647-lteIE7.css" type="text/css">
+    <![endif]-->
+    <!--TODO: CHANGE PATH-->
+    <!-- <script src="/pace/pace.js"></script> -->
+    <!-- <link href="/pace/themes/pace_theme.css" rel="stylesheet" /> -->
+    <script src="{{url_for('static', filename='js/pace.js')}}"></script>
+    <link rel="stylesheet" href="{{url_for('static', filename='css/pace_theme.css')}}" type="text/css">
+</head>
+<body id="b">
+<div class="v ps s15 c21">
+    <div class="ps24 v2 s16">
+        <div class="v3 ps25 s5 c22">
+            <p class="p f">Does Education Level Relate to Word Choice?</p>
+        </div>
+    </div>
+</div>
+<div class="v ps26 s17 c23"></div>
+<div class="ps27 v2 s2">
+    <div class="v ps23 s18 c2">
+        <div class="v ps28 s14 c8">
+<!--            <picture class="i4">-->
+<!--                <img src="images/4173109-841.jpg" alt="" class="js10 i3">-->
+<!--            </picture>-->
+            <div class="js10 i3">
+                <iframe src="/map"></iframe>
+            </div>
+        </div>
+        <div class="v ps29 s19 w">
+            <div class="v ps4 s20 c24">
+                <div class="v3 ps30 s7 c5">
+                    <ul class="ps8">
+                        <li class="p2 f2">&bull; <span class="f2"> Sentiment Time</span></li>
+                    </ul>
+                </div>
+                <div class="v ps31 s8 c6">
+                    <picture class="i2">
+                        <!-- <source srcset="images/4173109-652.jpg 1x, images/4173109-1304.jpg 2x">
+                        <img src="images/4173109-652.jpg" alt="" class="js11 i"> -->
+                        <div class="js11 i">
+                            {{script[0] | safe}}
+                            {{div[0] | safe}}
+                        </div>
+                    </picture>
+                </div>
+                <div class="v3 ps32 s7 c7">
+                    <ul class="ps8">
+                        <li class="p2 f2">&bull; <span class="f2"> Sentiment Map</span></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="v4 ps33 s21 c16">
+                <ul class="menu-dropdown v5 ps4 s21 m" id="m2">
+                    <li class="v ps4 s22 mit">
+                        <a class="ml" href="home">
+                            <div class="menu-content mcv">
+                                <div class="v ps4 s23 c17">
+                                    <div class="v3 ps19 s12 c18"><p class="p3 f3">Offensive Word</p></div>
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="v ps20 s22 mit">
+                        <a class="ml" href="#">
+                            <div class="menu-content mcv">
+                                <div class="v ps4 s23 c17">
+                                    <div class="v3 ps19 s12 c18"><p class="p3 f3">Sentiment Analysis</p></div>
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="js/jquery.js"></script>
+<script type="text/javascript" src="js/jqueryui.js"></script>
+<script type="text/javascript" src="js/menu.js"></script>
+<script type="text/javascript" src="js/menu-dropdown-animations.min.js"></script>
+<script type="text/javascript" src="js/menu-dropdown.20190513150647.js"></script>
+<script type="text/javascript" src="js/sentiment.20190513150647.js"></script>
+<script type="text/javascript">
+    var ver = RegExp(/Mozilla\/5\.0 \(Linux; .; Android ([\d.]+)/).exec(navigator.userAgent);
+    if (ver && parseFloat(ver[1]) < 5) {
+        document.getElementsByTagName('body')[0].className += ' whitespacefix';
+    }
+</script>
+</body>
+</html>
