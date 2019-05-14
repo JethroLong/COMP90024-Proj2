@@ -1,5 +1,7 @@
 import sys
+
 sys.path.append("/mnt/storage/COMP90024-Proj2-master")
+sys.path.append("/Users/jethrolong/pyCharmProjects/COMP90024-Proj2")
 
 import couchdb
 from harvester import read_host
@@ -13,7 +15,7 @@ from sentiment_distribution import SentimentPlaceAnalytics
 
 
 keywords_tweets = 'keyword_tweets'
-no_keywords_tweets = 'non_keyword_tweets'
+no_keywords_tweets = 'non_keywords'
 
 # map functions to be added or edited
 ALL_DOC_VIEW_FUNC = "function (doc) {\n emit(doc._id, doc); \n}"
@@ -47,9 +49,9 @@ def main(overwrite=False):
 
     # create new databases to store processed data
     try:
-        results_db = couch_server.create('results')
+        results_db = couch_server.create('test')  # results
     except PreconditionFailed:
-        results_db = couch_server['results']
+        results_db = couch_server['test']
 
     # Find trending hashtags
     # create views
