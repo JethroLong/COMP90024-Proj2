@@ -13,7 +13,7 @@ class SentimentPlaceAnalytics:
 
     def run(self):
         print('Sentiment Place distribution analysis Start...')
-        view = self.source_db.iterview(name=self.view_path, batch=10000)
+        view = self.source_db.view(name=self.view_path, limit=4000)
         sentiment_cor_list = []
         for each in view:
             temp_dict = {}
