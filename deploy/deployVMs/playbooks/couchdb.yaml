@@ -6,8 +6,14 @@
   tasks:
   - name: add no_proxy to /etc/environment
     lineinfile:
-        dest: /etc/environment
-        line: no_proxy=localhost,127.0.0.1,127.0.1.1,ubuntu,couchdb.novalocal,couchdb
+      dest: /etc/environment
+      line: no_proxy=localhost,127.0.0.1,127.0.1.1,ubuntu,couchdb.novalocal,couchdb
+
+  - name: create a couchdb directory
+    file:
+      path: /mnt/storage/couchdb
+      state: directory
+      mode: 0777
         
   - name: install dependencies
     apt: 
@@ -16,10 +22,11 @@
     with_items:
       - curl
 
-  # - name: add repository for couch
-  #   apt_repository:
-  #     repo: ppa:couchdb/stable
-  #     state: present
+  - name: add repository
+    shell: |
+      curl -L https://couchdb.apache.org/repo/bintray-pubkey.asc | sudo apt-key add -
+      echo "deb https://apache.bintray.com/couchdb-deb bionic main" | sudo tee -a /etc/apt/sources.list
+      sudo apt update
   
   - name: install CouchDB
     apt: 
@@ -27,23 +34,31 @@
       update_cache: yes
       state: present
 
-  # - name: secure file ownerships
-  #   command: "{{ item }}"
-  #   with_items:
-  #     - sudo chown -R couchdb:couchdb /usr/bin/couchdb /etc/couchdb /usr/share/couchdb
-  #     - sudo chmod -R 0777 /usr/bin/couchdb /etc/couchdb /usr/share/couchdb
-
-
-  - name: change working directory, remove localhost binding, add empty DB
+  - name: secure file ownerships, then restart couchdb
     command: "{{ item }}"
     with_items:
-      # - curl -X PUT http://localhost:5984/_node/_local/_config/couchdb/database_dir -d '"/mnt/storage/couchdb"'
-      # - curl -X PUT http://localhost:5984/_node/_local/_config/couchdb/view_index_dir -d '"/mnt/storage/couchdb"'
-      - curl -X PUT http://localhost:5984/_node/_local/_config/chttpd/bind_address -d '"0.0.0.0"'
-      # - curl -X PUT http://localhost:5984/tweets
+      - sudo chown -R couchdb:couchdb /etc/couchdb
+      - sudo chmod -R 0777 /etc/couchdb
+      - sudo chown -R couchdb:couchdb /mnt/storage/couchdb
+      - sudo chmod -R 0777 /mnt/storage/couchdb
+      - sudo service couchdb restart
 
-  - name: Restart CouchDB service
-    systemd:
-      state: restarted
-      daemon_reload: yes
-      name: couchdb
+  # - name: secure file ownerships, change working directory, remove localhost binding
+  #   command: "{{ item }}"
+  #   with_items:
+  #     - curl -X PUT http://localhost:5984/_node/_local/_config/couchdb/database_dir -d '"/mnt/storage/couchdb"'
+  #     - curl -X PUT http://localhost:5984/_node/_local/_config/couchdb/view_index_dir -d '"/mnt/storage/couchdb"'
+  #     - curl -X PUT http://localhost:5984/_node/_local/_config/chttpd/bind_address -d '"0.0.0.0"'
+  #     - curl -X PUT http://localhost:5984/_node/_local/_config/couchdb/os_process_timeout -d '"500000"'
+  #     - sudo service couchdb restart
+
+  - name: secure file ownerships, change working directory, remove localhost binding
+      wait_for: timeout=10
+    shell: |
+      curl -X PUT http://localhost:5984/_node/_local/_config/couchdb/database_dir -d '"/mnt/storage/couchdb"'
+      curl -X PUT http://localhost:5984/_node/_local/_config/couchdb/view_index_dir -d '"/mnt/storage/couchdb"'
+      curl -X PUT http://localhost:5984/_node/_local/_config/chttpd/bind_address -d '"0.0.0.0"'
+      curl -X PUT http://localhost:5984/_node/_local/_config/couchdb/os_process_timeout -d '"500000"'
+      sudo service couchdb restart
+
+    

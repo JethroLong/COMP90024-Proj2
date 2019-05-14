@@ -12,7 +12,6 @@
   #permission: everyone can read, write and execute
   - name: create a mount directory
     file:
-      # add COMP90024-Proj2 folder to volume
       path: /mnt/storage
       state: directory
       mode: 0777
@@ -23,9 +22,3 @@
       src: /dev/vdb
       fstype: ext4
       state: mounted
-
-  # - name: create mount dir
-  #   file:
-  #     path: /mnt/storage
-  #     state: directory
-  #     mode: 0777
