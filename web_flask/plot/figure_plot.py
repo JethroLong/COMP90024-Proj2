@@ -2,6 +2,8 @@ import collections
 from collections import Counter
 
 import json
+import sys
+sys.path.append()
 from harvester.read_host import ReadHost
 
 import couchdb

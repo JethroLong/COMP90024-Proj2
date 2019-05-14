@@ -1,7 +1,8 @@
 import sys
+sys.path.append("/mnt/storage/COMP90024-Proj2-master")
 
 import couchdb
-from harvester.read_host import ReadHost
+from harvester import read_host
 import json
 import create_views
 
@@ -28,7 +29,8 @@ SENTIMENT_DISTRIBUTION_VIEW = "function (doc) {\n  var dict = {};\n  dict['senti
 
 
 def get_db_url():
-    couchdb_ip = json.loads(ReadHost.read())["couchdb"]
+    couchdb_ip = read_host.ReadHost.read()
+    print("db url={}".format(couchdb_ip))
     couchdb_port = str(5984)
     url = "http://{}:{}".format(couchdb_ip, couchdb_port)
     # url = "http://172.26.38.109:5984"
