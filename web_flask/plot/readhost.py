@@ -2,28 +2,30 @@
 import linecache
 import json
 
-#HOST_FILE = "./deployVMs/hosts"
+#HOST_FILE = "../hosts"
 HOST_FILE = "/mnt/storage/COMP90024-Proj2/web_flask/hosts"
+# class readhost:
 
-def readhost():
+#     @staticmethod
+def read():
     couchdb = None
     analyser = None
     webserver = None
     harvester = None
     hdict = dict()
     
-    with open(HOST_FILE, mode='r') as f:
+    with open (HOST_FILE,mode='r') as f:
         count = 0
         for line in f.readlines():
             
             if line.find("[couchdb]") >= 0:
-                couchdb = linecache.getlines(HOST_FILE)[count+1].replace("\n", "")
+                couchdb = linecache.getlines(HOST_FILE)[count+1].replace("\n","")
             elif line.find("[analyser]") >= 0:
-                analyser = linecache.getlines(HOST_FILE)[count+1].replace("\n", "")
+                analyser = linecache.getlines(HOST_FILE)[count+1].replace("\n","")
             elif line.find("[webserver]") >= 0:
-                webserver = linecache.getlines(HOST_FILE)[count+1].replace("\n", "")
+                webserver = linecache.getlines(HOST_FILE)[count+1].replace("\n","")
             elif line.find("[harvester]") >= 0:
-                harvester = linecache.getlines(HOST_FILE)[count+1].replace("\n", "")
+                harvester = linecache.getlines(HOST_FILE)[count+1].replace("\n","")
             count = count + 1
 
     hdict["couchdb"] = couchdb

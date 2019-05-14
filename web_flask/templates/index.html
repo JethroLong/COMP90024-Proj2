@@ -1,92 +1,126 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8">
-    <title>
-        index
-    </title>
-    <meta content="same-origin" name="referrer">
-    <meta content="width=960" name="viewport">
-    <link href="{{url_for('static', filename='css/site.20190510183654.css')}}" rel="stylesheet" type="text/css">
-    <!--[if lte IE 7]>
-    <link rel="stylesheet" href="{{url_for('static', filename='css/site.20190510183654-lteIE7.css')}}" type="text/css">
-    <![endif]-->
-    </link>
+    <meta charset="UTF-8">
+    <title>index</title>
+    <meta name="referrer" content="same-origin">
+    <meta name="viewport" content="width=960">
+    <!-- <link rel="stylesheet" href="css/site.20190513150647.css" type="text/css"> -->
+    <link rel="stylesheet" href="{{url_for('static', filename='css/site.20190513150647.css')}}" type="text/css">
     <link rel="stylesheet" href="https://cdn.pydata.org/bokeh/release/bokeh-1.1.0.min.css" type="text/css"/>
     <script type="text/javascript" src="https://cdn.pydata.org/bokeh/release/bokeh-1.1.0.min.js"></script>
-    </meta>
+    <!--[if lte IE 7]>
+    <link rel="stylesheet" href="css/site.20190513150647-lteIE7.css" type="text/css">
+    <![endif]-->
+
+    <!--TODO: CHANGE PATH-->
+    <!-- <script src="/pace/pace.js"></script> -->
+    <script src="{{url_for('static', filename='js/pace.js')}}"></script>
+    <!-- <link href="/pace/themes/pace_theme.css" rel="stylesheet" /> -->
+    <link rel="stylesheet" href="{{url_for('static', filename='css/pace_theme.css')}}" type="text/css">
 </head>
 <body id="b">
-<div class="v ps s c">
-</div>
+<div class="v ps s c"></div>
 <div class="ps2 v2 s2">
     <div class="v ps3 s3 c2">
         <div class="v ps4 s3 w">
             <div class="v ps4 s4 c2">
                 <div class="v ps4 s4 w">
                     <div class="v3 ps5 s5 c3">
-                        <p class="p f">
-                            Does Education Level Relate to Word Choice?
-                        </p>
+                        <p class="p f">Does Education Level Relate to Word Choice?</p>
                     </div>
                     <div class="v ps6 s6 c4">
                         <div class="v3 ps7 s7 c5">
                             <ul class="ps8">
-                                <li class="p2 f2">
-                                    •
-                                    <span class="f2">
-                                                Offensive Word  & Education Level
-                                            </span>
-                                </li>
+                                <li class="p2 f2">&bull; <span
+                                        class="f2"> Offensive Word&nbsp; &amp; Education Level</span></li>
                             </ul>
                         </div>
-                        <div class="v3 ps9 s7 c6">
+                        <div class="v ps9 s8 c6">
+                            <picture class="i2">
+                                <source srcset="images/4173109-652.jpg 1x, images/4173109-1304.jpg 2x">
+                                <img src="images/4173109-652.jpg" alt="" class="js i">
+                            </picture>
+                        </div>
+                        <div class="v ps10 s8 c7">
+                            <picture class="i2">
+                                <source srcset="images/4173109-652.jpg 1x, images/4173109-1304.jpg 2x">
+                                <img src="images/4173109-652.jpg" alt="" class="js2 i">
+                            </picture>
+                        </div>
+                        <div class="v ps11 s8 c8">
+                            <picture class="i2">
+                                <source srcset="images/4173109-652.jpg 1x, images/4173109-1304.jpg 2x">
+                                <img src="images/4173109-652.jpg" alt="" class="js3 i">
+                            </picture>
+                        </div>
+                        <div class="v ps12 s8 c9">
+                            <picture class="i2">
+                                <source srcset="images/4173109-652.jpg 1x, images/4173109-1304.jpg 2x">
+                                <img src="images/4173109-652.jpg" alt="" class="js4 i">
+                            </picture>
+                        </div>
+                        <div class="v ps13 s8 c10">
+                            <picture class="i2">
+                                <source srcset="images/4173109-652.jpg 1x, images/4173109-1304.jpg 2x">
+                                <img src="images/4173109-652.jpg" alt="" class="js5 i">
+                            </picture>
+                        </div>
+                        <div class="v ps13 s8 c11">
+                            <picture class="i2">
+                                <source srcset="images/4173109-652.jpg 1x, images/4173109-1304.jpg 2x">
+                                <img src="images/4173109-652.jpg" alt="" class="js6 i">
+                            </picture>
+                        </div>
+                        <div class="v3 ps14 s7 c12">
                             <ul class="ps8">
-                                <li class="p2 f2">
-                                    •
-                                    <span class="f2">
-                                                Time Distribution
-                                            </span>
-                                </li>
+                                <li class="p2 f2">&bull; <span class="f2"> Time Distribution</span></li>
                             </ul>
                         </div>
-                        <div class="v3 ps10 s7 c7">
+                        <div class="v ps15 s8 c13">
+                            <picture class="i2">
+                                <!-- <source srcset="images/4173109-652.jpg 1x, images/4173109-1304.jpg 2x">
+                                <img src="images/4173109-652.jpg" alt="" class="js7 i"> -->
+                                <div class="js7 i">
+                                    {{script[1]|safe}}
+                                    {{div[1]|safe}}
+                                </div>
+                            </picture>
+                        </div>
+                        <div class="v3 ps16 s7 c14">
                             <ul class="ps8">
-                                <li class="p2 f2">
-                                    •
-                                    <span class="f2">
-                                                Trending Hashtags
-                                            </span>
-                                </li>
+                                <li class="p2 f2">&bull; <span class="f2"> Trending Hashtags</span></li>
                             </ul>
+                        </div>
+                        <div class="v ps17 s8 c15">
+                            <picture class="i2">
+                                <!-- <source srcset="images/4173109-652.jpg 1x, images/4173109-1304.jpg 2x">
+                                <img src="images/4173109-652.jpg" alt="" class="js8 i"> -->
+                                <div class="js8 i">
+                                    {{script[0]|safe}}
+                                    {{div[0]|safe}}
+                                </div>
+                            </picture>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="v4 ps11 s8 c8">
-                <ul class="menu-dropdown v5 ps4 s8 m" id="m1">
-                    <li class="v ps4 s9 mit">
+            <div class="v4 ps18 s9 c16">
+                <ul class="menu-dropdown v5 ps4 s9 m" id="m1">
+                    <li class="v ps4 s10 mit">
                         <a class="ml" href="#">
                             <div class="menu-content mcv">
-                                <div class="v ps4 s10 c9">
-                                    <div class="v3 ps12 s11 c10">
-                                        <p class="p3 f3">
-                                            Offensive Word
-                                        </p>
-                                    </div>
+                                <div class="v ps4 s11 c17">
+                                    <div class="v3 ps19 s12 c18"><p class="p3 f3">Offensive Word</p></div>
                                 </div>
                             </div>
                         </a>
                     </li>
-                    <li class="v ps13 s9 mit">
+                    <li class="v ps20 s10 mit">
                         <a class="ml" href="sentiment">
                             <div class="menu-content mcv">
-                                <div class="v ps4 s10 c9">
-                                    <div class="v3 ps12 s11 c10">
-                                        <p class="p3 f3">
-                                            Sentiment Analysis
-                                        </p>
-                                    </div>
+                                <div class="v ps4 s11 c17">
+                                    <div class="v3 ps19 s12 c18"><p class="p3 f3">Sentiment Analysis</p></div>
                                 </div>
                             </div>
                         </a>
@@ -96,59 +130,21 @@
         </div>
     </div>
 </div>
-<div class="v ps14 s12 c11">
-</div>
-<div class="ps15 v2 s2">
-    <div class="v ps16 s13 c12">
-        <picture class="i2">
-            <img alt="" class="js i" src="{{url_for('static', filename='images/4173109-652.jpg')}}">
-            </img>
-        </picture>
-    </div>
-    <div class="v ps17 s13 c13">
-        <picture class="i2">
-            <img alt="" class="js2 i" src="{{url_for('static', filename='images/4173109-652.jpg')}}">
-            </img>
-        </picture>
-    </div>
-    <div class="v ps18 s13 c14">
-        <picture class="i2">
-            <img alt="" class="js3 i" src="{{url_for('static', filename='images/4173109-652.jpg')}}"></img>
-        </picture>
-    </div>
-    <div class="v ps19 s13 c15">
-        <picture class="i2">
-              <div class="js4 i">
-                {{script[1] | safe}}
-                {{div[1] | safe}}
-              </div>
-        </picture>
-    </div>
-    <div class="v ps20 s13 c16">
-        <picture class="i2">
-<!--            <source srcset="images/4173109-652.jpg 1x, images/4173109-1304.jpg 2x">-->
-<!--            <img alt="" class="js5 i" src="images/4173109-652.jpg">-->
-<!--            </img>-->
-<!--            </source>-->
-            <div class="js5 i">
-                {{script[0] | safe}}
-                {{div[0] | safe}}
-            </div>
+<div class="v ps21 s13 c19"></div>
+<div class="ps22 v2 s2">
+    <div class="v ps23 s14 c20">
+        <picture class="i4">
+            <source srcset="images/4173109-841.jpg 1x, images/4173109-1682.jpg 2x">
+            <img src="images/4173109-841.jpg" alt="" class="js9 i3">
         </picture>
     </div>
 </div>
-<script src="js/jquery.js" type="text/javascript">
-</script>
-<script src="js/jqueryui.js" type="text/javascript">
-</script>
-<script src="js/menu.js" type="text/javascript">
-</script>
-<script src="js/menu-dropdown-animations.min.js" type="text/javascript">
-</script>
-<script src="js/menu-dropdown.20190510183654.js" type="text/javascript">
-</script>
-<script src="js/index.20190510183654.js" type="text/javascript">
-</script>
+<script type="text/javascript" src="js/jquery.js"></script>
+<script type="text/javascript" src="js/jqueryui.js"></script>
+<script type="text/javascript" src="js/menu.js"></script>
+<script type="text/javascript" src="js/menu-dropdown-animations.min.js"></script>
+<script type="text/javascript" src="js/menu-dropdown.20190513150647.js"></script>
+<script type="text/javascript" src="js/index.20190513150647.js"></script>
 <script type="text/javascript">
     var ver = RegExp(/Mozilla\/5\.0 \(Linux; .; Android ([\d.]+)/).exec(navigator.userAgent);
     if (ver && parseFloat(ver[1]) < 5) {
