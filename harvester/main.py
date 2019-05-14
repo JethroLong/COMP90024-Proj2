@@ -18,7 +18,7 @@ def main(argv):
         # url = data["db_url"]
 
         # import from system host file
-        couchdb_ip = json.loads(read_host.ReadHost.read())["couchdb"]
+        couchdb_ip = read_host.ReadHost.read()
         couchdb_port = str(5984)
         url = "http://{}:{}".format(couchdb_ip, couchdb_port)
 
