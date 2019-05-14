@@ -1,5 +1,4 @@
 import json
-import read_host
 import sys
 
 import Database, StreamTwitter
@@ -18,7 +17,7 @@ def main(argv):
         # url = data["db_url"]
 
         # import from system host file
-        couchdb_ip = read_host.ReadHost.read()
+        couchdb_ip = read_ipAddr()
         couchdb_port = str(5984)
         url = "http://{}:{}".format(couchdb_ip, couchdb_port)
 
@@ -61,6 +60,20 @@ def keyword_distribution(Groups):
             Groups[indicator % group_size]["keywords"].append(keyword[:-1])
             indicator += 1
     return Groups
+
+
+def read_ipAddr():
+    with open("./hosts", mode='r') as f:
+        found = False
+        for line in f:
+            if found:
+                if line.endswith("\n"):
+                    return line[:-1]
+                else:
+                    return line
+            if line.find("[harvester]") >= 0:
+                found = True
+    return None
 
 
 if __name__ == '__main__':

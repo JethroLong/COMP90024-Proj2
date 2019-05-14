@@ -1,7 +1,7 @@
 from flask import Flask, render_template
 
-from plot.draw_map import DrawMap
-from plot.figure_plot import Plotter
+from draw_map import DrawMap
+from figure_plot import Plotter
 
 web_app = Flask(__name__)
 
@@ -55,4 +55,5 @@ def get_map():
 
 
 if __name__ == '__main__':
+
     web_app.run(host="0.0.0.0", port=5000, debug=True)

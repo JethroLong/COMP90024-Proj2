@@ -5,146 +5,230 @@
     <title>index</title>
     <meta name="referrer" content="same-origin">
     <meta name="viewport" content="width=960">
-    <!-- <link rel="stylesheet" href="css/site.20190513150647.css" type="text/css"> -->
-    <link rel="stylesheet" href="{{url_for('static', filename='css/site.20190513150647.css')}}" type="text/css">
+    <!-- <link rel="stylesheet" href="css/site.20190514232311.css" type="text/css"> -->
+    <link rel="stylesheet" href="{{url_for('static', filename='css/site.20190514232311.css')}}" type="text/css">
     <link rel="stylesheet" href="https://cdn.pydata.org/bokeh/release/bokeh-1.1.0.min.css" type="text/css"/>
     <script type="text/javascript" src="https://cdn.pydata.org/bokeh/release/bokeh-1.1.0.min.js"></script>
-    <!--[if lte IE 7]>
-    <link rel="stylesheet" href="css/site.20190513150647-lteIE7.css" type="text/css">
-    <![endif]-->
-
-    <!--TODO: CHANGE PATH-->
-    <!-- <script src="/pace/pace.js"></script> -->
     <script src="{{url_for('static', filename='js/pace.js')}}"></script>
     <!-- <link href="/pace/themes/pace_theme.css" rel="stylesheet" /> -->
     <link rel="stylesheet" href="{{url_for('static', filename='css/pace_theme.css')}}" type="text/css">
+    <!--[if lte IE 7]>
+    <link rel="stylesheet" href="css/site.20190514232311-lteIE7.css" type="text/css">
+    <![endif]-->
+    <style>
+        body {
+            font-family: Arial;
+        }
+
+        /* Style the tab */
+        .tab {
+            overflow: hidden;
+            border: none;
+            background-color: none;
+        }
+
+        /* Style the buttons inside the tab */
+        .tab button {
+            background-color: #f6bc48;
+            float: left;
+            border: none;
+            outline: none;
+            cursor: pointer;
+            padding: 14px 16px;
+            transition: 0.3s;
+            font-size: 10px;
+        }
+
+        /* Change background color of buttons on hover */
+        .tab button:hover {
+            background-color: #185a11;
+            border-color: #808080;
+            color: #fff
+        }
+
+        /* Create an active/current tablink class */
+        .tab button.active {
+            background-color: #185a11;
+            border-color: #808080;
+            color: #f6bc48
+        }
+
+        /* Style the tab content */
+        .tabcontent {
+            display: none;
+            padding: 6px 12px;
+            border: 1px solid #ccc;
+            border-top: none;
+            min-width: 625px;
+            width: 625px;
+            min-height: 567px;
+            height: 567px
+        }
+    </style>
 </head>
 <body id="b">
 <div class="v ps s c"></div>
 <div class="ps2 v2 s2">
     <div class="v ps3 s3 c2">
-        <div class="v ps4 s3 w">
-            <div class="v ps4 s4 c2">
-                <div class="v ps4 s4 w">
-                    <div class="v3 ps5 s5 c3">
-                        <p class="p f">Does Education Level Relate to Word Choice?</p>
-                    </div>
-                    <div class="v ps6 s6 c4">
-                        <div class="v3 ps7 s7 c5">
-                            <ul class="ps8">
-                                <li class="p2 f2">&bull; <span
-                                        class="f2"> Offensive Word&nbsp; &amp; Education Level</span></li>
-                            </ul>
-                        </div>
-                        <div class="v ps9 s8 c6">
-                            <picture class="i2">
-                                <source srcset="images/4173109-652.jpg 1x, images/4173109-1304.jpg 2x">
-                                <img src="images/4173109-652.jpg" alt="" class="js i">
-                            </picture>
-                        </div>
-                        <div class="v ps10 s8 c7">
-                            <picture class="i2">
-                                <source srcset="images/4173109-652.jpg 1x, images/4173109-1304.jpg 2x">
-                                <img src="images/4173109-652.jpg" alt="" class="js2 i">
-                            </picture>
-                        </div>
-                        <div class="v ps11 s8 c8">
-                            <picture class="i2">
-                                <source srcset="images/4173109-652.jpg 1x, images/4173109-1304.jpg 2x">
-                                <img src="images/4173109-652.jpg" alt="" class="js3 i">
-                            </picture>
-                        </div>
-                        <div class="v ps12 s8 c9">
-                            <picture class="i2">
-                                <source srcset="images/4173109-652.jpg 1x, images/4173109-1304.jpg 2x">
-                                <img src="images/4173109-652.jpg" alt="" class="js4 i">
-                            </picture>
-                        </div>
-                        <div class="v ps13 s8 c10">
-                            <picture class="i2">
-                                <source srcset="images/4173109-652.jpg 1x, images/4173109-1304.jpg 2x">
-                                <img src="images/4173109-652.jpg" alt="" class="js5 i">
-                            </picture>
-                        </div>
-                        <div class="v ps13 s8 c11">
-                            <picture class="i2">
-                                <source srcset="images/4173109-652.jpg 1x, images/4173109-1304.jpg 2x">
-                                <img src="images/4173109-652.jpg" alt="" class="js6 i">
-                            </picture>
-                        </div>
-                        <div class="v3 ps14 s7 c12">
-                            <ul class="ps8">
-                                <li class="p2 f2">&bull; <span class="f2"> Time Distribution</span></li>
-                            </ul>
-                        </div>
-                        <div class="v ps15 s8 c13">
-                            <picture class="i2">
-                                <!-- <source srcset="images/4173109-652.jpg 1x, images/4173109-1304.jpg 2x">
-                                <img src="images/4173109-652.jpg" alt="" class="js7 i"> -->
-                                <div class="js7 i">
-                                    {{script[1]|safe}}
-                                    {{div[1]|safe}}
-                                </div>
-                            </picture>
-                        </div>
-                        <div class="v3 ps16 s7 c14">
-                            <ul class="ps8">
-                                <li class="p2 f2">&bull; <span class="f2"> Trending Hashtags</span></li>
-                            </ul>
-                        </div>
-                        <div class="v ps17 s8 c15">
-                            <picture class="i2">
-                                <!-- <source srcset="images/4173109-652.jpg 1x, images/4173109-1304.jpg 2x">
-                                <img src="images/4173109-652.jpg" alt="" class="js8 i"> -->
-                                <div class="js8 i">
-                                    {{script[0]|safe}}
-                                    {{div[0]|safe}}
-                                </div>
-                            </picture>
-                        </div>
-                    </div>
+        <div class="v ps4 s4 w">
+            <div class="v ps4 s5 c2">
+                <div class="v ps5 s6 c3">
+                    <a class="f button v3 s7" href="#">Offensive Word</a>
+                </div>
+                <div class="v4 ps6 s8 c4">
+                    <p class="p f2">Does Education Level Relate to Word Choice?</p>
                 </div>
             </div>
-            <div class="v4 ps18 s9 c16">
-                <ul class="menu-dropdown v5 ps4 s9 m" id="m1">
-                    <li class="v ps4 s10 mit">
-                        <a class="ml" href="#">
-                            <div class="menu-content mcv">
-                                <div class="v ps4 s11 c17">
-                                    <div class="v3 ps19 s12 c18"><p class="p3 f3">Offensive Word</p></div>
-                                </div>
-                            </div>
-                        </a>
-                    </li>
-                    <li class="v ps20 s10 mit">
-                        <a class="ml" href="sentiment">
-                            <div class="menu-content mcv">
-                                <div class="v ps4 s11 c17">
-                                    <div class="v3 ps19 s12 c18"><p class="p3 f3">Sentiment Analysis</p></div>
-                                </div>
-                            </div>
-                        </a>
-                    </li>
+            <div class="v ps7 s9 c5">
+                <div class="v4 ps8 s10 c6">
+                    <ul class="ps9">
+                        <li class="p2 f3">&bull; <span class="f3"> Offensive Word&nbsp; &amp; Education Level</span>
+                        </li>
+                    </ul>
+                    <p class="p3 f4">The results below illustrates the correlation between the number of tweets using
+                        offensive words in an area and the education level of this area.</p>
+                </div>
+                <div class="v ps10 s11 c2">
+                    <div class="v ps4 s12 c7">
+                        <picture class="i2">
+                            <source srcset="images/wechatimg1004-352.png 1x, images/wechatimg1004-704.png 2x">
+                            <img src="images/wechatimg1004-352.png" alt="" class="js i">
+                        </picture>
+                    </div>
+                    <div class="v ps11 s12 c8">
+                        <picture class="i2">
+                            <source srcset="images/wechatimg1004-352.png 1x, images/wechatimg1004-704.png 2x">
+                            <img src="images/wechatimg1004-352.png" alt="" class="js2 i">
+                        </picture>
+                    </div>
+                </div>
+                <div class="v ps12 s13 c2">
+                    <div class="v ps4 s12 c9">
+                        <picture class="i2">
+                            <source srcset="images/wechatimg1004-352.png 1x, images/wechatimg1004-704.png 2x">
+                            <img src="images/wechatimg1004-352.png" alt="" class="js3 i">
+                        </picture>
+                    </div>
+                    <div class="v ps13 s12 c10">
+                        <picture class="i2">
+                            <source srcset="images/wechatimg1004-352.png 1x, images/wechatimg1004-704.png 2x">
+                            <img src="images/wechatimg1004-352.png" alt="" class="js4 i">
+                        </picture>
+                    </div>
+                </div>
+                <div class="v ps14 s14 c11">
+                    <picture class="i4">
+                        <source srcset="images/screen-shot-2019-05-14-at-9.30.13-pm-630.jpg 1x, images/screen-shot-2019-05-14-at-9.30.13-pm-1260.jpg 2x">
+                        <img src="images/screen-shot-2019-05-14-at-9.30.13-pm-630.jpg" alt="" class="js5 i3">
+                    </picture>
+                </div>
+                <div class="v ps15 s14 c12">
+                    <picture class="i4">
+                        <source srcset="images/screen-shot-2019-05-14-at-9.30.13-pm-630.jpg 1x, images/screen-shot-2019-05-14-at-9.30.13-pm-1260.jpg 2x">
+                        <img src="images/screen-shot-2019-05-14-at-9.30.13-pm-630.jpg" alt="" class="js6 i3">
+                    </picture>
+                </div>
+                <div class="v ps16 s15 c13">
+                    <picture class="i6">
+
+                        <!-- Add tab here -->
+
+                        <div class="tab">
+                            <button class="tablinks" onclick="openCity(event, 'Map 1')" id="defaultOpen">Map 1</button>
+                            <button class="tablinks" onclick="openCity(event, 'Map 2')">Map 2</button>
+                            <button class="tablinks" onclick="openCity(event, 'Map 3')">Map 3</button>
+                            <button class="tablinks" onclick="openCity(event, 'Map 4')">Map 4</button>
+                            <button class="tablinks" onclick="openCity(event, 'Map 5')">Map 5</button>
+                        </div>
+
+                        <div id="Map 1" class="tabcontent">
+                            <!-- <p>add map 1 here</p> -->
+                            <iframe src="/map1"></iframe>
+                        </div>
+                </div>
+
+                <div id="Map 2" class="tabcontent">
+                    <!-- <p>add map 2 here</p>  -->
+                    <iframe src="/map2"></iframe>
+                </div>
+
+                <div id="Map 3" class="tabcontent">
+                    <!-- <p>add map 3 here</p> -->
+                    <iframe src="/map3"></iframe>
+                </div>
+
+                <div id="Map 4" class="tabcontent">
+                    <!-- <p>add map 4 here</p> -->
+                    <iframe src="/map4"></iframe>
+                </div>
+
+                <div id="Map 5" class="tabcontent">
+                    <!-- <p>add map 5 here</p> -->
+                    <iframe src="/map5"></iframe>
+                </div>
+
+                <script>
+                    function openCity(evt, cityName) {
+                        var i, tabcontent, tablinks;
+                        tabcontent = document.getElementsByClassName("tabcontent");
+                        for (i = 0; i < tabcontent.length; i++) {
+                            tabcontent[i].style.display = "none";
+                        }
+                        tablinks = document.getElementsByClassName("tablinks");
+                        for (i = 0; i < tablinks.length; i++) {
+                            tablinks[i].className = tablinks[i].className.replace(" active", "");
+                        }
+                        document.getElementById(cityName).style.display = "block";
+                        evt.currentTarget.className += " active";
+                    }
+
+                    // Get the element with id="defaultOpen" and click on it
+                    document.getElementById("defaultOpen").click();
+                </script>
+
+                </picture>
+            </div>
+            <div class="v4 ps17 s16 c14">
+                <ul class="ps9">
+                    <li class="p2 f3">&bull; <span class="f3"> Time Distribution</span></li>
                 </ul>
+                <p class="p3 f4">When does people post offensive tweets in a&nbsp; day?</p>
+            </div>
+            <div class="v ps18 s17 c15">
+                <picture class="i8">
+                    <!-- <source srcset="images/4173109-652.jpg 1x, images/4173109-1304.jpg 2x">
+                    <img src="images/4173109-652.jpg" alt="" class="js8 i7"> -->
+                    <div class="js8 i7">
+                        {{script[1]|safe}}
+                        {{div[1]|safe}}
+                    </div>
+                </picture>
+            </div>
+            <div class="v4 ps19 s18 c16">
+                <ul class="ps9">
+                    <li class="p2 f3">&bull; <span class="f3"> Trending Hashtags among Offensive Tweets</span></li>
+                </ul>
+            </div>
+            <div class="v ps20 s17 c17">
+                <picture class="i8">
+                    <!-- <source srcset="images/4173109-652.jpg 1x, images/4173109-1304.jpg 2x">
+                    <img src="images/4173109-652.jpg" alt="" class="js9 i7"> -->
+                    <div class="js9 i7">
+                        {{script[0]|safe}}
+                        {{div[0]|safe}}
+                    </div>
+                </picture>
             </div>
         </div>
     </div>
-</div>
-<div class="v ps21 s13 c19"></div>
-<div class="ps22 v2 s2">
-    <div class="v ps23 s14 c20">
-        <picture class="i4">
-            <source srcset="images/4173109-841.jpg 1x, images/4173109-1682.jpg 2x">
-            <img src="images/4173109-841.jpg" alt="" class="js9 i3">
-        </picture>
+    <div class="v ps21 s6 c18">
+        <a class="f button v3 s7" href="sentiment">Sentiment Analysis</a>
     </div>
 </div>
+</div>
+<div class="v ps22 s19 c19"></div>
 <script type="text/javascript" src="js/jquery.js"></script>
-<script type="text/javascript" src="js/jqueryui.js"></script>
-<script type="text/javascript" src="js/menu.js"></script>
-<script type="text/javascript" src="js/menu-dropdown-animations.min.js"></script>
-<script type="text/javascript" src="js/menu-dropdown.20190513150647.js"></script>
-<script type="text/javascript" src="js/index.20190513150647.js"></script>
+<script type="text/javascript" src="js/index.20190514232311.js"></script>
 <script type="text/javascript">
     var ver = RegExp(/Mozilla\/5\.0 \(Linux; .; Android ([\d.]+)/).exec(navigator.userAgent);
     if (ver && parseFloat(ver[1]) < 5) {

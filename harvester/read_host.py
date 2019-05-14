@@ -8,8 +8,8 @@ sys.path.append("/Users/jethrolong/pyCharmProjects/COMP90024-Proj2/")
 class ReadHost:
 
     @staticmethod
-    def read():
-        with open("/Users/jethrolong/pyCharmProjects/COMP90024-Proj2/harvester/hosts", mode='r') as f:
+    def read_url():
+        with open("./hosts", mode='r') as f:
             found = False
             for line in f:
                 if found:
