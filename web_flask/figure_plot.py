@@ -150,16 +150,17 @@ class Plotter:
                 if k == 'pos':
                     bar_data_dict['pos'].append(v)
         sentiment_list = list(dict_list[0].keys())
-        colors = ["lightcoral", "burlywood", "mediumseagreen"]
+        colors = ["#7FB290", "#C4DE9F", "#F3B8AD"]
 
         p = figure(x_range=time_list, plot_height=450, plot_width=666, title="Sentiments of the Day",
                    tools="hover, pan, save, reset", tooltips="$name @time: @$name")
 
-        p.vbar_stack(sentiment_list, x='time', width=0.7, color=colors, source=bar_data_dict,
+        p.vbar_stack(sentiment_list, x='time', width=0.4, color=colors, source=bar_data_dict,
                      legend=[value(x) for x in sentiment_list])
 
         p.y_range.start = 0
         p.x_range.range_padding = 0.1
+        p.yaxis.formatter = NumeralTickFormatter(format="00")
         p.xgrid.grid_line_color = None
         p.axis.minor_tick_line_color = None
         p.outline_line_color = None
@@ -224,7 +225,7 @@ class Plotter:
                    toolbar_location='right', tools="hover, pan, save, reset, wheel_zoom", tooltips=TOOLTIPS)
 
         # p.vbar(x=time, top=num, width=0.9)
-        p.line(time, rate_list, line_width=0.9, color='#c9d9d9')
+        p.line(time, rate_list, line_width=2, color='#7FB290')
         p.yaxis.formatter = NumeralTickFormatter(format='0.00%')
         p.xaxis.axis_label = 'Time (hour)'
 
