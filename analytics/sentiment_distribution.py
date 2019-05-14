@@ -13,24 +13,21 @@ class SentimentPlaceAnalytics:
 
     def run(self):
         print('Sentiment Place distribution analysis Start...')
-        view = self.source_db.view(name=self.view_path, limit=4000)
         sentiment_cor_list = []
-        for each in view:
-            temp_dict = {}
-            if 'coordinates' in each.value.keys():
-                temp_dict['coordinates'] = each.value['coordinates']['coordinates']
-                temp_dict['sentiment'] = each.value['sentiment']
-            # elif 'geo' in each.value.keys():
-            #     temp_dict['coordinates'] = each.value['geo']['coordinates'][::-1]
-            #     temp_dict['sentiment'] = each.value['sentiment']
-            # elif 'place' in each.value.keys():
-            #     if 'coordinates' in each.value['place']['bounding_box'].keys():
-            #         x_list = [x[0] for x in each.value['place']['bounding_box']['coordinates'][0]]
-            #         y_list = [x[1] for x in each.value['place']['bounding_box']['coordinates'][0]]
-            #         temp_dict['coordinates'] = [sum(x_list) / float(len(x_list)), sum(y_list) / float(len(y_list))]
-            #         temp_dict['sentiment'] = each.value['sentiment']
-            temp_dict['text'] = TextProcessor.remove_pattern(each.value['text'])
-            sentiment_cor_list.append(temp_dict)
+        for iter in range(50):
+            view = self.source_db.view(name=self.view_path, limit=10000, skip=iter*10000)
+            # view = self.source_db.view(name=self.view_path, limit=10000)
+            count = 0
+            for each in view:
+                temp_dict = {}
+                if 'coordinates' in each.value.keys():
+                    temp_dict['coordinates'] = each.value['coordinates']['coordinates']
+                    temp_dict['sentiment'] = each.value['sentiment']
+                    temp_dict['text'] = TextProcessor.remove_pattern(each.value['text'])
+                    sentiment_cor_list.append(temp_dict)
+                    count += 1
+                if count == 100:
+                    break
 
         record = {'_id': "sentiment_distribution", "data": sentiment_cor_list}
 
