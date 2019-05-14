@@ -224,7 +224,7 @@ class Plotter:
                    toolbar_location='right', tools="hover, pan, save, reset, wheel_zoom", tooltips=TOOLTIPS)
 
         # p.vbar(x=time, top=num, width=0.9)
-        p.line(time, rate_list, line_width=0.9)
+        p.line(time, rate_list, line_width=0.9, color='#c9d9d9')
         p.yaxis.formatter = NumeralTickFormatter(format='0.00%')
         p.xaxis.axis_label = 'Time (hour)'
 

@@ -27,8 +27,6 @@ def home():
     temp_script, temp_div = plotter.time_distribution(doc_id='time_distribution', db_name='results')
     script.append(temp_script)
     div.append(temp_div)
-    print(script)
-    print(div)
 
     return render_template('index.html', script=script, div=div)
 

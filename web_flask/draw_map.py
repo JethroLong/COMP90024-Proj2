@@ -66,11 +66,11 @@ class DrawMap:
 
     def mapper(self, doc_id, db_name):
         AUS_BOUND_BOX = (113.338953078, -43.6345972634, 153.569469029, -10.6681857235)
-        centeroid = [(AUS_BOUND_BOX[1] + AUS_BOUND_BOX[3]) / 2, (AUS_BOUND_BOX[0] + AUS_BOUND_BOX[2]) / 2]
+        # centeroid = [(AUS_BOUND_BOX[1] + AUS_BOUND_BOX[3]) / 2, (AUS_BOUND_BOX[0] + AUS_BOUND_BOX[2]) / 2]
         data = self.retrieve_data(doc_id, db_name)
         df = pd.DataFrame(data['data'])
 
-        map = folium.Map(location=centeroid, zoom_start=4, tiles='OpenStreetMap')
+        map = folium.Map(location=[-37.814, 144.96332], zoom_start=12, tiles='OpenStreetMap')
         folium.TileLayer('Mapbox Control Room').add_to(map)
         folium.TileLayer('Stamen Terrain').add_to(map)
         folium.TileLayer('Stamen Toner').add_to(map)
