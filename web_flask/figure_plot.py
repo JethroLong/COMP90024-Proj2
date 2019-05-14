@@ -1,12 +1,8 @@
 import collections
 from collections import Counter
 
-import json
-import sys
-sys.path.append()
-from harvester.read_host import ReadHost
-
 import couchdb
+
 # import matplotlib.pyplot as plt
 from bokeh.core.property.dataspec import value
 from bokeh.embed import components
@@ -18,12 +14,25 @@ from bokeh.plotting import figure
 
 class Plotter:
     def __init__(self):
-        couchdb_ip = json.loads(ReadHost.read())["couchdb"]
+        couchdb_ip = self.read_ipAddr()
         couchdb_port = str(5984)
         self.url = "http://{}:{}".format(couchdb_ip, couchdb_port)
-        # self.url = "http://172.26.38.43:5984"
 
         self.couch_server = couchdb.Server(url=self.url)
+
+    @staticmethod
+    def read_ipAddr():
+        with open("./hosts", mode='r') as f:
+            found = False
+            for line in f:
+                if found:
+                    if line.endswith("\n"):
+                        return line[:-1]
+                    else:
+                        return line
+                if line.find("[harvester]") >= 0:
+                    found = True
+        return None
 
     def retrieve_data(self, doc_id, db_name):
         while True:

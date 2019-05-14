@@ -1,12 +1,6 @@
-import sys
-
-sys.path.append("/mnt/storage/COMP90024-Proj2-master")
-sys.path.append("/Users/jethrolong/pyCharmProjects/COMP90024-Proj2")
-
 import couchdb
-from harvester import read_host
-import json
 import create_views
+import sys
 
 from couchdb import PreconditionFailed
 from process_hashtag import HashtagProcessor
@@ -31,12 +25,25 @@ SENTIMENT_DISTRIBUTION_VIEW = "function (doc) {\n  var dict = {};\n  dict['senti
 
 
 def get_db_url():
-    couchdb_ip = read_host.ReadHost.read()
-    print("db url={}".format(couchdb_ip))
+    couchdb_ip = read_ipAddr()
     couchdb_port = str(5984)
     url = "http://{}:{}".format(couchdb_ip, couchdb_port)
     # url = "http://172.26.38.109:5984"
     return url
+
+
+def read_ipAddr():
+    with open("./hosts", mode='r') as f:
+        found = False
+        for line in f:
+            if found:
+                if line.endswith("\n"):
+                    return line[:-1]
+                else:
+                    return line
+            if line.find("[harvester]") >= 0:
+                found = True
+    return None
 
 
 def main(overwrite=False):
@@ -49,9 +56,9 @@ def main(overwrite=False):
 
     # create new databases to store processed data
     try:
-        results_db = couch_server.create('test')  # results
+        results_db = couch_server.create('results')  # results
     except PreconditionFailed:
-        results_db = couch_server['test']
+        results_db = couch_server['results']
 
     # Find trending hashtags
     # create views

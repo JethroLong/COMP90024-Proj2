@@ -4,25 +4,29 @@ import couchdb
 import folium
 import pandas as pd
 from folium.plugins import MarkerCluster
-#import readhost
 
-# def main():
-#     couchdb_ip = json.loads(readhost.read())["couchdb"]
-#     couchdb_port = str(5984)
-#     #print(couchdb_ip)
-#     url = "http://{}:{}".format(couchdb_ip, couchdb_port)
-#     print(url)
 
-# if __name__ == '__main__':
-#     main()
 class DrawMap:
     def __init__(self):
-        # couchdb_ip = json.loads(readhost.read())["couchdb"]
-        # couchdb_port = str(5984)
-        # self.url = "http://{}:{}".format(couchdb_ip, couchdb_port)
-        #print(self.url)
-        self.url = "http://172.26.28.43:5984"
+        couchdb_ip = self.read_ipAddr()
+        couchdb_port = str(5984)
+        self.url = "http://{}:{}".format(couchdb_ip, couchdb_port)
+
         self.couch_server = couchdb.Server(url=self.url)
+
+    @staticmethod
+    def read_ipAddr():
+        with open("./hosts", mode='r') as f:
+            found = False
+            for line in f:
+                if found:
+                    if line.endswith("\n"):
+                        return line[:-1]
+                    else:
+                        return line
+                if line.find("[harvester]") >= 0:
+                    found = True
+        return None
 
     def retrieve_data(self, doc_id, db_name):
         while True:
