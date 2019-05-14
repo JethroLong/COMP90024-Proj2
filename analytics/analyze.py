@@ -24,6 +24,7 @@ SENTIMENT_TIME_VIEW = "function (doc) {\n  if (doc.sentiment != null) { \n var s
 SENTIMENT_DISTRIBUTION_VIEW = "function (doc) {\n  var dict = {};\n  dict['sentiment'] = doc.sentiment.compound;\n  dict['text'] = doc.text;\n  if (doc.coordinates != null){\n    dict['coordinates'] = doc.coordinates;\n    emit(doc._id, dict)\n  }\n}"
 
 
+@staticmethod
 def get_db_url():
     couchdb_ip = read_ipAddr()
     couchdb_port = str(5984)
