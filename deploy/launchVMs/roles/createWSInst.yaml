@@ -1,4 +1,3 @@
-
 # Create an instance for webserver on NeCTAR
 - name: Create webserver instance
   os_server:
@@ -21,7 +20,8 @@
 
 - name: Add webserver instancec's IP addr to inventory
   blockinfile:
-    dest: /Users/apple/Desktop/Ansible_latest/deployVMs/hosts
+    #dest: /Users/apple/Desktop/Ansible_latest/deployVMs/hosts
+    dest: ../../deployVMs/hosts
     marker: "# webserver ip"
     block: |
     

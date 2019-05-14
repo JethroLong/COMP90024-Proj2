@@ -66,7 +66,7 @@ ws_instance_key_name: team62qnn
 ws_instance_flavor: uom.mse.2c9g
 db_instance_name: couchdb
 db_instance_image: afccf48a-9426-4618-86dc-0ceb636f0169
-db_instance_key_name: team62zxl
+db_instance_key_name: team62qnn
 db_instance_flavor: uom.mse.2c9g
 hr_instance_name: harvester
 hr_instance_image: afccf48a-9426-4618-86dc-0ceb636f0169
