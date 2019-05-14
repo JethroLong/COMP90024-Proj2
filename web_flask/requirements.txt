@@ -3,3 +3,6 @@ couchdb
 bokeh
 pandas
 folium
+matplotlib
+numpy
+scipy
