@@ -1,24 +1,25 @@
 import collections
 from collections import Counter
-#import readhost
-#import json
+
+import json
+from harvester.read_host import ReadHost
 
 import couchdb
-import matplotlib.pyplot as plt
+# import matplotlib.pyplot as plt
 from bokeh.core.property.dataspec import value
 from bokeh.embed import components
 from bokeh.models import GMapOptions, Circle, GMapPlot, PanTool, WheelZoomTool, ResetTool, SaveTool,\
     NumeralTickFormatter
 from bokeh.plotting import figure
-from bokeh.resources import CDN
+# from bokeh.resources import CDN
 
 
 class Plotter:
     def __init__(self):
-        # couchdb_ip = json.loads(readhost.read())["couchdb"]
-        # couchdb_port = str(5984)
-        # self.url = "http://{}:{}".format(couchdb_ip, couchdb_port)
-        self.url = "http://172.26.38.43:5984"
+        couchdb_ip = json.loads(ReadHost.read())["couchdb"]
+        couchdb_port = str(5984)
+        self.url = "http://{}:{}".format(couchdb_ip, couchdb_port)
+        # self.url = "http://172.26.38.43:5984"
 
         self.couch_server = couchdb.Server(url=self.url)
 
