@@ -21,15 +21,11 @@
 
 - name: Add analyser instance's IP addr to inventory
   blockinfile:
-    #dest: /Users/apple/Desktop/Ansible_latest/deployVMs/hosts
-    dest: ../../deployVMs/hosts
+    dest: /Users/apple/Desktop/COMP90024-Proj2/deploy/deployVMs/hosts
+    #dest: ../../deployVMs/hosts
     marker: "# analyser ip"
     block: |
     
       [analyser]
       {{ os_instance_ar.openstack.public_v4 }}
     backup: no
-
-# - name: Set names for instances'ip address
-#   set_fact:
-#     analyserIP: '{{ os_instance_ar.openstack.public_v4 }}'
