@@ -42,18 +42,11 @@
       - sudo chown -R couchdb:couchdb /mnt/storage/couchdb
       - sudo chmod -R 0777 /mnt/storage/couchdb
       - sudo service couchdb restart
+      
+  # pause the playbook for 10 seconds, wait for couchDB to restart, then continue
+  - pause: seconds=10
 
-  # - name: secure file ownerships, change working directory, remove localhost binding
-  #   command: "{{ item }}"
-  #   with_items:
-  #     - curl -X PUT http://localhost:5984/_node/_local/_config/couchdb/database_dir -d '"/mnt/storage/couchdb"'
-  #     - curl -X PUT http://localhost:5984/_node/_local/_config/couchdb/view_index_dir -d '"/mnt/storage/couchdb"'
-  #     - curl -X PUT http://localhost:5984/_node/_local/_config/chttpd/bind_address -d '"0.0.0.0"'
-  #     - curl -X PUT http://localhost:5984/_node/_local/_config/couchdb/os_process_timeout -d '"500000"'
-  #     - sudo service couchdb restart
-
-  - name: secure file ownerships, change working directory, remove localhost binding
-      wait_for: timeout=10
+  - name: change working directory, remove localhost binding, set process timeout
     shell: |
       curl -X PUT http://localhost:5984/_node/_local/_config/couchdb/database_dir -d '"/mnt/storage/couchdb"'
       curl -X PUT http://localhost:5984/_node/_local/_config/couchdb/view_index_dir -d '"/mnt/storage/couchdb"'
