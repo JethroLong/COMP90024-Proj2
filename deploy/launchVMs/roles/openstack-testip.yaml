@@ -1,3 +1,0 @@
-- name: Display all variables/facts known for a host
-  debug:
-    msg: "{{ webserverIP }},{{ couchdbIP }},{{ analyserIP }} has been tested"
