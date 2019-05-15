@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>index</title>
     <meta name="referrer" content="same-origin">
-    <meta name="viewport" content="width=960">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- <link rel="stylesheet" href="css/site.20190514232311.css" type="text/css"> -->
     <link rel="stylesheet" href="{{url_for('static', filename='css/site.20190514232311.css')}}" type="text/css">
     <link rel="stylesheet" href="https://cdn.pydata.org/bokeh/release/bokeh-1.1.0.min.css" type="text/css"/>
@@ -57,13 +57,15 @@
         .tabcontent {
             display: none;
             padding: 6px 12px;
-            border: 1px solid #ccc;
+            <!--border: 1px solid #ccc;-->
+            border: none;
             border-top: none;
             min-width: 625px;
             width: 625px;
             min-height: 567px;
             height: 567px
         }
+
     </style>
 </head>
 <body id="b">
@@ -91,41 +93,53 @@
                 <div class="v ps10 s11 c2">
                     <div class="v ps4 s12 c7">
                         <picture class="i2">
-                            <source srcset="images/wechatimg1004-352.png 1x, images/wechatimg1004-704.png 2x">
-                            <img src="images/wechatimg1004-352.png" alt="" class="js i">
+                            <!--<source srcset="images/wechatimg1004-352.png 1x, images/wechatimg1004-704.png 2x">-->
+                            <!--<img src="images/wechatimg1004-352.png" alt="" class="js i">-->
+                            <iframe src="{{url_for('static', filename='figures/scenarioA.html')}}" height="351px"
+                                    width="352px" frameborder="none"></iframe>
                         </picture>
                     </div>
                     <div class="v ps11 s12 c8">
                         <picture class="i2">
-                            <source srcset="images/wechatimg1004-352.png 1x, images/wechatimg1004-704.png 2x">
-                            <img src="images/wechatimg1004-352.png" alt="" class="js2 i">
+                            <!--<source srcset="images/wechatimg1004-352.png 1x, images/wechatimg1004-704.png 2x">-->
+                            <!--<img src="images/wechatimg1004-352.png" alt="" class="js2 i">-->
+                            <iframe src="{{url_for('static', filename='figures/scenarioAa2.html')}}" height="351px"
+                                    width="352px" frameborder="none"></iframe>
                         </picture>
                     </div>
                 </div>
                 <div class="v ps12 s13 c2">
                     <div class="v ps4 s12 c9">
                         <picture class="i2">
-                            <source srcset="images/wechatimg1004-352.png 1x, images/wechatimg1004-704.png 2x">
-                            <img src="images/wechatimg1004-352.png" alt="" class="js3 i">
+                            <!--<source srcset="images/wechatimg1004-352.png 1x, images/wechatimg1004-704.png 2x">-->
+                            <!--<img src="images/wechatimg1004-352.png" alt="" class="js3 i">-->
+                            <iframe src="{{url_for('static', filename='figures/scenarioA3.html')}}" height="351px"
+                                    width="352px" frameborder="none"></iframe>
                         </picture>
                     </div>
                     <div class="v ps13 s12 c10">
                         <picture class="i2">
-                            <source srcset="images/wechatimg1004-352.png 1x, images/wechatimg1004-704.png 2x">
-                            <img src="images/wechatimg1004-352.png" alt="" class="js4 i">
+                            <!--<source srcset="images/wechatimg1004-352.png 1x, images/wechatimg1004-704.png 2x">-->
+                            <!--<img src="images/wechatimg1004-352.png" alt="" class="js4 i">-->
+                            <iframe src="{{url_for('static', filename='figures/scenarioA4.html')}}" height="351px"
+                                    width="352px" frameborder="none"></iframe>
                         </picture>
                     </div>
                 </div>
                 <div class="v ps14 s14 c11">
                     <picture class="i4">
-                        <source srcset="images/screen-shot-2019-05-14-at-9.30.13-pm-630.jpg 1x, images/screen-shot-2019-05-14-at-9.30.13-pm-1260.jpg 2x">
-                        <img src="images/screen-shot-2019-05-14-at-9.30.13-pm-630.jpg" alt="" class="js5 i3">
+                        <!--<source srcset="images/screen-shot-2019-05-14-at-9.30.13-pm-630.jpg 1x, images/screen-shot-2019-05-14-at-9.30.13-pm-1260.jpg 2x">-->
+                        <!--<img src="images/screen-shot-2019-05-14-at-9.30.13-pm-630.jpg" alt="" class="js5 i3">-->
+                        <iframe src="{{url_for('static', filename='figures/scenarioB1.html')}}" height="382px"
+                                width="630px" frameborder="none"></iframe>
                     </picture>
                 </div>
                 <div class="v ps15 s14 c12">
                     <picture class="i4">
-                        <source srcset="images/screen-shot-2019-05-14-at-9.30.13-pm-630.jpg 1x, images/screen-shot-2019-05-14-at-9.30.13-pm-1260.jpg 2x">
-                        <img src="images/screen-shot-2019-05-14-at-9.30.13-pm-630.jpg" alt="" class="js6 i3">
+                        <!--<source srcset="images/screen-shot-2019-05-14-at-9.30.13-pm-630.jpg 1x, images/screen-shot-2019-05-14-at-9.30.13-pm-1260.jpg 2x">-->
+                        <!--<img src="images/screen-shot-2019-05-14-at-9.30.13-pm-630.jpg" alt="" class="js6 i3">-->
+                        <iframe src="{{url_for('static', filename='figures/scenarioB2.html')}}" height="382px"
+                                width="630px" frameborder="none"></iframe>
                     </picture>
                 </div>
                 <div class="v ps16 s15 c13">
@@ -143,28 +157,32 @@
 
                         <div id="Map 1" class="tabcontent">
                             <!-- <p>add map 1 here</p> -->
-                            <iframe src="/map1"></iframe>
+                            <iframe src="{{url_for('static', filename='figures/MAP-1.png')}}" height="567px"
+                                    width="625px" frameborder="none"></iframe>
                         </div>
-                </div>
 
                 <div id="Map 2" class="tabcontent">
                     <!-- <p>add map 2 here</p>  -->
-                    <iframe src="/map2"></iframe>
+                    <iframe src="{{url_for('static', filename='figures/scenarioAmap2.html')}}" height="567px"
+                            width="625px" frameborder="none"></iframe>
                 </div>
 
                 <div id="Map 3" class="tabcontent">
                     <!-- <p>add map 3 here</p> -->
-                    <iframe src="/map3"></iframe>
+                    <iframe src="{{url_for('static', filename='figures/scenarioAmap3.html')}}" height="567px"
+                            width="625px" frameborder="none"></iframe>
                 </div>
 
                 <div id="Map 4" class="tabcontent">
                     <!-- <p>add map 4 here</p> -->
-                    <iframe src="/map4"></iframe>
+                    <iframe src="{{url_for('static', filename='figures/scenarioAmap4.html')}}" height="567px"
+                            width="625px" frameborder="none"></iframe>
                 </div>
 
                 <div id="Map 5" class="tabcontent">
                     <!-- <p>add map 5 here</p> -->
-                    <iframe src="/map5"></iframe>
+                    <iframe src="{{url_for('static', filename='figures/scenarioAmap5.html')}}" height="567px"
+                            width="625px" frameborder="none"></iframe>
                 </div>
 
                 <script>
@@ -184,9 +202,11 @@
 
                     // Get the element with id="defaultOpen" and click on it
                     document.getElementById("defaultOpen").click();
+
                 </script>
 
                 </picture>
+                    <!--</div>-->
             </div>
             <div class="v4 ps17 s16 c14">
                 <ul class="ps9">
@@ -234,6 +254,12 @@
     if (ver && parseFloat(ver[1]) < 5) {
         document.getElementsByTagName('body')[0].className += ' whitespacefix';
     }
+
+
+
+
+
+
 </script>
 </body>
 </html>
