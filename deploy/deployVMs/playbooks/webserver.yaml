@@ -22,7 +22,6 @@
 
   - name: Copy hosts file to analyser
     copy:
-      #src: /Users/apple/Desktop/Ansible_latest/deployVMs/hosts
       src: ../hosts
       dest: /mnt/storage/COMP90024-Proj2/web_flask/hosts   
       owner: ubuntu
@@ -40,12 +39,6 @@
       pip3 install matplotlib
       pip3 install numpy
       pip3 install scipy
-
-  # - name: install python libraries(Python 3.6 specifically)
-  #   become: yes
-  #   pip:
-  #     requirements: /mnt/storage/COMP90024-Proj2/web_flask/requirements.txt
-  #     executable: pip-3.6
 
   # - name: start webserver
   #   shell: |
