@@ -23,7 +23,6 @@
 ################ Remember to change src path##################
   - name: Copy hosts file to harvester
     copy:
-      #src: /Users/apple/Desktop/Ansible_latest/deployVMs/hosts
       src: ../hosts
       dest: /mnt/storage/COMP90024-Proj2/harvester/hosts
       owner: ubuntu
@@ -35,12 +34,6 @@
       pip3 install tweepy
       pip3 install couchdb
       pip3 install nltk
-
-  # - name: install python libraries(Python 3.6 specifically)
-  #   become: yes
-  #   pip:
-  #     requirements: /mnt/storage/COMP90024-Proj2/harvester/requirements.txt
-  #     executable: pip-3.6
 
   # - name: start harvester [G1]
   #   shell: python3 /mnt/storage/COMP90024Proj2/harvester/main.py stream 2 -K &
