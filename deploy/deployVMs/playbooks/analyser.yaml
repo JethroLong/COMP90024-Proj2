@@ -23,7 +23,6 @@
 ################ Remember to change src path##################
   - name: Copy hosts file to analyser
     copy:
-      #src: /Users/apple/Desktop/Ansible_latest/deployVMs/hosts
       src: ../hosts
       dest: /mnt/storage/COMP90024-Proj2/analytics/hosts   
       owner: ubuntu
@@ -34,11 +33,5 @@
   - name: install python libraries
     shell: pip3 install couchdb
     
-  # - name: install python libraries(Python 3.6 specifically)
-  #   become: yes
-  #   pip:
-  #     requirements: /mnt/storage/COMP90024-Proj2/analytics/requirements.txt
-  #     executable: pip-3.6
-
   # - name: start analyser
   #   shell: python3 /mnt/storage/COMP90024Proj2/analytics/analyze.py
